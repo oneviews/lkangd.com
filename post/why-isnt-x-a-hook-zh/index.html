@@ -1,0 +1,179 @@
+<!doctype html>
+<html data-n-head-ssr>
+  <head>
+    <title>为什么 'XX' 不是一个 Hooks API? - Curtis' Spot</title><meta data-n-head="ssr" charset="utf-8"><meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1"><meta data-n-head="ssr" data-hid="description" name="description" content="Front-end Engineer. Bloggin about life, tech & everything I love."><link data-n-head="ssr" rel="icon" type="image/x-icon" href="/favicon.png"><link data-n-head="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC&display=swap"><link data-n-head="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:900&display=swap"><base href="/lkangd.com/"><link rel="preload" href="/lkangd.com/_nuxt/65dc7a5cd1c1cd57e7eb.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/48f65a593c854d50b992.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/2bc7cee40a450e203637.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/ef6c14c0800794aa78c2.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/7e77b8e6cd7011676488.js" as="script"><style data-vue-ssr-id="4c1d7b6c:0 08fa13ea:0 1ff19d8c:0 e7f76474:0 c85b1ba0:0 6f6dcbd0:0 fb70d044:0 230384db:0 861b946c:0">a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,html,i,iframe,img,input,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font-weight:400;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,menu,nav,section{display:block}body{line-height:1}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:none}table{border-collapse:collapse;border-spacing:0}a{backface-visibility:hidden;-webkit-backface-visibility:hidden;-webkit-touch-callout:none;text-decoration:none;cursor:pointer}li{list-style:none}body{-webkit-text-size-adjust:none;-webkit-tap-highlight-color:transparent}*{box-sizing:border-box}html{font-size:16px!important}body,html{height:100%;line-height:1;font-family:"Noto Serif SC",serif;-webkit-tap-highlight-color:transparent;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}body{margin:0 auto;scroll-behavior:smooth}strong{font-weight:700}a,button{color:inherit;outline:0;border:none;background-color:transparent;-webkit-tap-highlight-color:transparent;transition:text-shadow .3s;white-space:pre-wrap;word-break:break-all;cursor:pointer}a:active,a:focus,button:active,button:focus{outline:0!important}a:hover,button:hover{text-shadow:0 0 1px #000}::-moz-selection{background:rgba(255,233,87,.6)}::selection{background:rgba(255,233,87,.6)}.cs-outside-link{position:relative;cursor:pointer;transition:color .2s cubic-bezier(0,.8,.13,1);-webkit-text-decoration-color:transparent!important;text-decoration-color:transparent!important}.cs-outside-link:after{content:"";position:absolute;z-index:-1;top:60%;left:-.1em;right:-.1em;bottom:0;transition:top .2s cubic-bezier(0,.8,.13,1);background-color:var(--yellow)}.cs-outside-link:hover{color:#121314}.cs-outside-link:hover:after{top:0}.cs-nav-link{position:relative}.cs-nav-link:before{content:"";position:absolute;height:1px;bottom:3px;left:0;right:0;background-color:var(--site-nav);transform-origin:bottom left;transform:scaleX(1);transition:transform .3s ease-in-out}.cs-nav-link:hover:before{transform:scaleX(0);transform-origin:bottom right}.cs-container{margin:0 auto;padding:0 32px;max-width:764px}.cs-container-big{margin:0 auto;padding:0 32px;max-width:1024px}.cs-split-title{height:0;font-weight:700;line-height:0;text-transform:uppercase;text-align:center;border-bottom:1px solid var(--hr);margin-top:48px;margin-bottom:20px;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.cs-split-title>span{padding-left:.5em;padding-right:.5em;font-weight:700;color:var(--text-normal);background-color:var(--bg)}.cs-title{font-size:24px;line-height:34px;font-weight:700}.cs-title,.cs-title-big{margin:20px auto;font-family:Montserrat,serif;color:var(--text-title)}.cs-title-big{font-size:32px;line-height:42px;font-weight:900}.cs-text{margin-bottom:10px;line-height:1.3;color:var(--text-normal);word-break:break-all;white-space:wrap}.cs-text a{text-decoration:underline}.cs-text small{font-size:.8em}.cs-date{margin:24px 0 32px;line-height:1.7;color:var(--site-desc)}.cs-list{margin:16px auto;padding-left:40px;list-style-type:disc}.cs-list__item{display:list-item;list-style:inherit;line-height:1.5;word-break:break-all;white-space:wrap}.fl{float:left}.fr{float:right}body{--yellow:rgba(255,233,87,0.6);--bg:#fff;--header:var(--pink);--text-normal:#000;--text-title:#222;--text-link:#d23669;--hr:#a7adba;--footer-bg:#fafafa;--logo:#000;--site-desc:#65737e;--site-nav:#343d46;--inline-code-fg:rgba(49,51,51,0.9);--inline-code-bg:rgba(255,233,87,0.4);color:var(--text-normal);background-color:var(--bg)}body.dark{--yellow:#373c49;--bg:#282c35;--header:#fff;--text-normal:hsla(0,0%,100%,0.88);--text-title:#fff;--text-link:var(--pink);--hr:hsla(0,0%,100%,0.2);--footer-bg:#242830;--logo:#fff;--site-desc:hsla(0,0%,100%,0.88);--site-nav:hsla(0,0%,100%,0.88);--inline-code-fg:#e6e6e6;--inline-code-bg:#373c49;-webkit-font-smoothing:antialiased}code[class*=language-],pre[class*=language-]{color:#fff;background:0 0;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;font-feature-settings:normal;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;margin-bottom:0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{overflow:auto;padding:1.3125rem}pre[class*=language-]::-moz-selection{background:#27292a}pre[class*=language-]::selection{background:#27292a}pre[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection{text-shadow:none;background:hsla(0,0%,100%,.15)}pre[class*=language-] ::selection,pre[class*=language-]::selection{text-shadow:none;background:hsla(0,0%,100%,.15)}:not(pre)>code[class*=language-]{border-radius:.3em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:.15em .2em .05em;white-space:normal}.token.attr-name{color:#addb67;font-style:italic}.token.comment{color:#809393}.token.string,.token.url{color:#addb67}.token.variable{color:#d6deeb}.token.number{color:#f78c6c}.token.builtin,.token.char,.token.constant,.token.function{color:#82aaff}.token.punctuation{color:#c792ea}.token.doctype,.token.selector{color:#c792ea;font-style:italic}.token.class-name{color:#ffcb8b}.token.keyword,.token.operator,.token.tag{color:#ffa7c4}.token.boolean{color:#ff5874}.token.property{color:#80cbc4}.token.namespace{color:#b2ccd6}pre[data-line]{padding:1em 0 1em 3em;position:relative}.gatsby-highlight-code-line{background-color:#022a4b;display:block;padding-right:1em;padding-left:1.25em;border-left:.25em solid #ffa7c4}.gatsby-highlight,.gatsby-highlight-code-line{margin-right:-1.3125rem;margin-left:-1.3125rem}.gatsby-highlight{margin-bottom:1.75rem;border-radius:10px;background:#011627;-webkit-overflow-scrolling:touch;overflow:auto}@media (max-width:672px){.gatsby-highlight{border-radius:0}}.gatsby-highlight pre[class*=language-]{float:left;min-width:100%}.line-highlight{border-left:4px solid #ffa7c4}.line-highlight:after,.line-highlight:before{display:none}.cs-loading[data-v-0dfe3184]{position:fixed;top:0;left:0;z-index:100;width:100%;height:100%;background-color:var(--bg);will-change:opacity;transition:opacity .5s .4s}.cs-loading.loaded[data-v-0dfe3184]{opacity:0}.cs-loading .main[data-v-0dfe3184]{position:absolute;top:calc(50% - 63px);left:calc(50% - 63px);z-index:1;width:126px;height:126px}.cs-loading .main.out-of-window .line1-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line1[data-v-0dfe3184],.cs-loading .main.out-of-window .line3-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line3[data-v-0dfe3184],.cs-loading .main.out-of-window .line5[data-v-0dfe3184],.cs-loading .main.out-of-window .line7[data-v-0dfe3184],.cs-loading .main.out-of-window .line9[data-v-0dfe3184]{transform:rotate(45deg) translateY(100vh)}.cs-loading .main.out-of-window .line10[data-v-0dfe3184],.cs-loading .main.out-of-window .line2-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line2[data-v-0dfe3184],.cs-loading .main.out-of-window .line4-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line4-3[data-v-0dfe3184],.cs-loading .main.out-of-window .line4[data-v-0dfe3184],.cs-loading .main.out-of-window .line6[data-v-0dfe3184],.cs-loading .main.out-of-window .line8-1[data-v-0dfe3184],.cs-loading .main.out-of-window .line8[data-v-0dfe3184]{transform:rotate(45deg) translateY(-100vh)}.cs-loading .main.out-of-window .text[data-v-0dfe3184]{opacity:0;transition:opacity .5s}.cs-loading .main .line[data-v-0dfe3184]{position:absolute;z-index:3;width:7px;background:var(--text-normal);will-change:transform;transform:rotate(45deg)}.cs-loading .main .line.line1[data-v-0dfe3184]{top:51px;left:5px;height:17px;transition:transform .5s}.cs-loading .main .line.line1-2[data-v-0dfe3184]{top:-3px;left:50px;height:36px;transition:transform .5s}.cs-loading .main .line.line2[data-v-0dfe3184]{top:55px;left:9px;height:27px;transition:transform .5s}.cs-loading .main .line.line2-2[data-v-0dfe3184]{top:-5px;left:56px;height:53px;transition:transform .5s}.cs-loading .main .line.line3[data-v-0dfe3184]{top:58px;left:15px;height:35px;transition:transform .5s .1s}.cs-loading .main .line.line3-2[data-v-0dfe3184]{top:-2px;left:63px;height:59px;transition:transform .5s .1s}.cs-loading .main .line.line4[data-v-0dfe3184]{top:55px;left:24px;height:48px;transition:transform .5s .1s}.cs-loading .main .line.line4-2[data-v-0dfe3184]{top:27px;left:60px;height:33px;transition:transform .5s .1s}.cs-loading .main .line.line4-3[data-v-0dfe3184]{top:9px;left:84px;height:21px;transition:transform .5s .1s}.cs-loading .main .line.line5[data-v-0dfe3184]{top:4px;left:54px;height:117px;transition:transform .5s .2s}.cs-loading .main .line.line6[data-v-0dfe3184]{top:15px;left:59px;height:111px;transition:transform .5s .2s}.cs-loading .main .line.line7[data-v-0dfe3184]{top:16px;left:69px;height:115px;transition:transform .5s .3s}.cs-loading .main .line.line8[data-v-0dfe3184]{top:56px;left:63px;height:72px;transition:transform .5s .3s}.cs-loading .main .line.line8-1[data-v-0dfe3184]{top:30px;left:116px;height:18px;transition:transform .5s .3s}.cs-loading .main .line.line9[data-v-0dfe3184]{top:67px;left:70px;height:61px;transition:transform .5s .4s}.cs-loading .main .line.line10[data-v-0dfe3184]{top:82px;left:78px;height:40px;transition:transform .5s .4s}.cs-loading .main .text[data-v-0dfe3184]{position:absolute;bottom:-18%;left:0;width:100%;font-size:18px;font-weight:700;color:var(--text-normal);text-align:center;will-change:opacity;transition:opacity .5s .5s}.cs-header[data-v-e2fcdc26]{padding-top:64px}.cs-header__logo[data-v-e2fcdc26]{position:relative;left:4px;display:block;margin:0 auto;width:128px;height:128px;color:var(--logo);transition:color .5s;cursor:pointer}.cs-header__logo[data-v-e2fcdc26]:hover{color:#ffe957}.cs-header__text[data-v-e2fcdc26]{margin:16px 0;padding:0 32px;font-weight:700;line-height:1.4;text-align:center;color:var(--text-normal)}.cs-header__text--light[data-v-e2fcdc26]{color:var(--site-desc);font-weight:500}.cs-nav[data-v-3775b65b]{padding:32px;font-size:0;text-align:center}.cs-nav__item[data-v-3775b65b]{display:inline-block;padding:0 8px;color:var(--site-nav);cursor:pointer}.cs-nav__item>a[data-v-3775b65b]{font-size:16px;font-weight:700;line-height:1.4}.post{background-color:transparent}.post hr{margin:64px 0;border:0;border-bottom:1px solid var(--hr)}.post .cs-post-article a{padding:0 4px;text-decoration:underline}.post .cs-post-article h2{margin:24px 0;font-size:20px;font-weight:700}.post .cs-post-article h3{margin:24px 0;font-size:18px;font-weight:700}.post .cs-post-article li,.post .cs-post-article p{margin:24px 0;font-size:16px;line-height:28px;color:var(--text-normal)}.post .cs-post-article code:not([class*=language-]){padding:0 4px;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;color:var(--inline-code-fg);background-color:var(--inline-code-bg);border-radius:3px}.post .cs-post-article strong em{margin:0 6px;font-weight:700}.post .cs-post-article hr{margin:30px 0;border:0;border-bottom:1px solid var(--hr)}.post .cs-post-article em{margin:0 6px}.post .cs-post-article pre{background-color:#011627;border-radius:10px}.post .cs-post-article ul li{font-size:16px;line-height:28px;list-style:disc}.post .cs-post-article ol li{list-style:decimal}.post .cs-post-article img{width:100%;height:auto}.post__wrapper{overflow:hidden}.post__wrapper>a{margin:20px 0}.cs-statement[data-v-6cb3297c]{text-align:center}.cs-statement hr[data-v-6cb3297c]{margin:64px 0;border:0;border-bottom:1px solid var(--hr)}.cs-statement__text[data-v-6cb3297c]{margin:8px 0;line-height:1.7;color:var(--text-normal)}.cs-statement__reward-code[data-v-6cb3297c]{margin-top:50px;max-width:30%;height:auto}@media (max-width:375px){.cs-statement .cs-statement__reward-code[data-v-6cb3297c]{max-width:76%!important}}.cs-footer[data-v-04c3be52]{position:relative;margin-top:40px;padding:40px 40px 20px;color:#9aa0ac;text-align:center}.cs-footer[data-v-04c3be52]:after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;z-index:-2;background-color:var(--footer-bg)}.cs-footer__logo[data-v-04c3be52]{display:block;margin:18px auto;width:28px;height:28px;color:var(--logo)}.cs-footer__text>a[data-v-04c3be52],.cs-footer__text[data-v-04c3be52]{font-weight:600}.cs-footer__text[data-v-04c3be52]{margin:18px 0}.cs-footer__slogan[data-v-04c3be52]{display:inline-block;vertical-align:middle;font-size:14px}.cs-color-slogan[data-v-1740ad80]{display:inline-block;position:relative;font-family:serif;color:var(--text-normal);background-color:transparent}.cs-color-slogan__placeholder[data-v-1740ad80]{opacity:0}.cs-color-slogan__wrapper[data-v-1740ad80]{position:absolute;top:0;white-space:nowrap}</style>
+  </head>
+  <body>
+    <div data-server-rendered="true" id="__nuxt"><!----><div id="__layout"><div><header class="cs-header" data-v-e2fcdc26><svg xmlns="http://www.w3.org/2000/svg" class="cs-header__logo" data-v-e2fcdc26><use href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo" xlink:href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo"></use></svg> <p class="cs-header__text" data-v-e2fcdc26>Curtis Liong</p> <p class="cs-header__text cs-header__text--light" data-v-e2fcdc26><a href="https://en.wikipedia.org/wiki/Front-end_web_development" target="_blank" class="cs-outside-link" data-v-e2fcdc26>Front-end</a> Engineer. Blogging about life, tech & everything I love.
+  </p></header> <nav class="cs-nav" data-v-3775b65b><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/" class="cs-nav-link nuxt-link-active" data-v-3775b65b>Home</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/tech/" class="cs-nav-link" data-v-3775b65b>Tech</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/think/" class="cs-nav-link" data-v-3775b65b>Think</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/fun/" class="cs-nav-link" data-v-3775b65b>Fun</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/about/" class="cs-nav-link" data-v-3775b65b>About</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/donate/" class="cs-nav-link" data-v-3775b65b>Donate</a></div> <div class="cs-nav__item" data-v-3775b65b><a href="/feed.xml" target="_blank" class="cs-nav-link" data-v-3775b65b>RSS</a></div> <div class="cs-nav__item" data-v-3775b65b><a href="/sitemap.xml" target="_blank" class="cs-nav-link" data-v-3775b65b>Sitemap</a></div></nav> <section class="post cs-container-big"><h2 class="cs-title-big">为什么 'XX' 不是一个 Hooks API?</h2> <p class="cs-date">26, Jan, 2019•2.2k words•☕️☕️ 8 min read</p> <article class="cs-post-article"><p>自从 <a href="https://reactjs.org/hooks">React Hooks</a> 发布 alpha 版本, 就有很多人对一些问题的讨论，比如: “为什么有些 API 不是一个 Hook?”。</p>
+<p>比如下面这些就是一些 Hooks API：</p>
+<ul>
+<li><a href="https://reactjs.org/docs/hooks-reference.html#usestate"><code>useState()</code></a> 可以用来声明 <code>state</code> 变量。</li>
+<li><a href="https://reactjs.org/docs/hooks-reference.html#useeffect"><code>useEffect()</code></a> 可以用来声明 <code>side effects</code>。</li>
+<li><a href="https://reactjs.org/docs/hooks-reference.html#usecontext"><code>useContext()</code></a> 可以用来读取 <code>context</code>。</li>
+</ul>
+<p>但是有些 API 就不是 hooks，比如 <code>React.memo()</code> 和 <code>&lt;Context.Provider></code>。一般大家提出来的 Hook 基本上是*不可组合（noncompositional）<em>和</em>反模块化（antimodular）*的，这篇文章会帮助你理解为什么。</p>
+<p><strong>注：这篇文章是一篇深入探讨的文章，阅读对象应该是对 API 的讨论是非常感兴趣的，而不是为了考虑使用 React 来提升效率的！</strong></p>
+<hr>
+<p>我们想让 React 的 API 保持以下非常重要的两点:</p>
+<ol>
+<li>
+<p><strong>组合:</strong> 对于 Hooks API来说，可以<a href="https://reactjs.org/docs/hooks-custom.html">自定义 Hooks</a> 是让我们感到非常兴奋的. 我们期望大家都可以来构建自己的Hooks API, 并且我们需要确保不同人写的 Hooks API <a href="/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem">不会造成冲突</a>。 (我们是不是已经被自由的组合组件而不用担心相互造成影响给惯坏了？)</p>
+</li>
+<li>
+<p><strong>调试:</strong> 我们希望随着应用规模的不断增长 <a href="/the-bug-o-notation/">bug 是很容易发现的</a>的。React最棒的一个特性就是如果某些内容被错误的渲染了，你可以轻松的找到对应的组件的 prop 或者 state 导致了这个问题。</p>
+</li>
+</ol>
+<p>结合这两点来看，我们就可以知道哪些是<em>不能</em>成为一个 Hook。我们可以用一些例子来说明：</p>
+<hr>
+<h2>一个 Hook: <code>useState()</code></h2>
+<h3>组合</h3>
+<p>多个自定义的 Hooks 调用 <code>useState()</code>，而不会造成冲突：</p>
+<pre class="language-js"><code class="language-js">function useMyCustomHook1() {
+  const [value, setValue] = useState(0);
+  // What happens here, stays here.
+}
+
+function useMyCustomHook2() {
+  const [value, setValue] = useState(0);
+  // What happens here, stays here.
+}
+
+function MyComponent() {
+  useMyCustomHook1();
+  useMyCustomHook2();
+  // ...
+}
+</code></pre><p>添加一个不在条件判断里的 <code>useState()</code> ， 调用这个 API 是很安全的。你不需要了解在一个组件里面声明了新的 state 变量被其他 Hooks 使用了。也不会因为更新了其他状态导致 state 变量被破坏。</p>
+<p><strong>结论:</strong> ✅ <code>useState()</code> 不会对其他自定义的 Hooks 造成破坏。</p>
+<h3>调试</h3>
+<p>Hooks 是非常有用的，你可以在 Hooks <em>之间</em>传递值：</p>
+<pre data-line="4,12,14," 4,12,14="" class="language-js"><code 4,12,14="" class="language-js">function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+  // ...
+  return width;
+}
+
+function useTheme(isMobile) {
+  // ...
+}
+
+function Comment() {
+  const width = useWindowWidth();
+  const isMobile = width &lt; MOBILE_VIEWPORT;
+  const theme = useTheme(isMobile);
+  return (
+    &lt;section className={theme.comment}>
+      {/* ... */}
+    &lt;/section>
+  );
+}
+</code></pre><p>但是如过我们的代码出错了，我们怎么调试？</p>
+<p>假设我们从 <code>theme.comment</code> 里拿出来的一个 css class 是错误的, 那我们怎么调试这个问题？我们可以在组件里设置一个断点或者输出一些日志。</p>
+<p>也许我们可以发现 <code>theme</code> 是错误的，但是 <code>width</code> 和 <code>isMobile</code>是正确的。这就告诉我们问题是发生在 <code>useTheme()</code> 里面。也有可能 <code>width</code> 不对，那么相应的问题就出在 <code>useWindowWidth()</code> 里。</p>
+<p><strong>一看最顶部的对应 Hooks 里的中间值就知道问题发生在哪里了。</strong> 我们不需要查看组件里所有的 Hooks 的实现。</p>
+<p>我们直接查看有问题的那个实现，重复这个步骤就可以确定问题具体问题发生在什么地方。</p>
+<p>如果自定义 Hooks 的嵌套层级增加了，那么这个就变的更加重要。想象一下，我们有三层嵌套的自定义 Hook，每层使用了三个不同的自定 Hooks。 定位<strong>3个有问题的地方</strong>和定位 <strong>3 + 3×3 + 3×3×3 = 39个有问题地方</strong>，二者之间的成本<a href="/the-bug-o-notation/">差别</a>是非常大的。幸运的是，<code>useState()</code> 不会对其他 Hooks 或者组件造成莫名其妙的影响。雁过留痕，一个 Hooks 返回的错误值，和普通的变量是没有任何区别的。🐛</p>
+<p><strong>结论:</strong> ✅ <code>useState()</code> 不会隐藏我们代码中的因果关系。我们可以一步步的定位到对应的bug。</p>
+<hr>
+<h2>不是一个 Hook: <code>useBailout()</code></h2>
+<p>作为一种优化, 组件使用 Hooks 可以避免重新渲染。</p>
+<p>另一种方式是我们可以使用 <a href="https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo"><code>React.memo()</code></a> 包裹整个组件。 为了避免重新渲染，<code>React.memo()</code> 会用本次即将渲染的 props 和最后一次然的 props 通过 <code>shallowly equal</code> 去做比较， 这个和 <code>PureComponent</code> 是类似的。</p>
+<p><code>React.memo()</code> 接收一个组件作为参数并返回一个组件：</p>
+<pre data-line="4," 4="" class="language-js"><code 4="" class="language-js">function Button(props) {
+  // ...
+}
+export default React.memo(Button);
+</code></pre><p><strong>但是 <code>useBailout()</code> 为什么不仅仅是一个钩子</strong></p>
+<p>不论你将其称之为 <code>useShouldComponentUpdate()</code>， <code>usePure()</code>， <code>useSkipRender()</code> 或者 <code>useBailout()</code>， 这个提案(proposal)看起来就和下面这个是一样的：</p>
+<pre class="language-js"><code class="language-js">function Button({ color }) {
+  // ⚠️ 非真实API
+  useBailout(prevColor => prevColor !== color, color);
+
+  return (
+    &lt;button className={'button-' + color}>  
+      OK
+    &lt;/button>
+  )
+}
+</code></pre><p>也有一些其他不同的提案（比如：<a href="https://github.com/reactjs/rfcs/pull/30#issuecomment-371337630"><code>usePure()</code></a>），但是一般来说，这个提案也有同样的问题。</p>
+<h3>组合</h3>
+<p>让我们尝试将 <code>useBailout()</code> 在两个自定义的 Hooks 中使用：</p>
+<pre data-line="4,5,19,20," 4,5,19,20="" class="language-js"><code 4,5,19,20="" class="language-js">function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  // ⚠️ 非真实API
+  useBailout(prevIsOnline => prevIsOnline !== isOnline, isOnline);
+
+  useEffect(() => {
+    const handleStatusChange = status => setIsOnline(status.isOnline);
+    ChatAPI.subscribe(friendID, handleStatusChange);
+    return () => ChatAPI.unsubscribe(friendID, handleStatusChange);
+  });
+
+  return isOnline;
+}
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+  
+  // ⚠️ 非真实API
+  useBailout(prevWidth => prevWidth !== width, width);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  });
+
+  return width;
+}
+</code></pre><p>如果现在在同一个组件中使用这两个自定义的 Hooks 会发生什么？</p>
+<pre data-line="2,3," 2,3="" class="language-js"><code 2,3="" class="language-js">function ChatThread({ friendID, isTyping }) {
+  const width = useWindowWidth();
+  const isOnline = useFriendStatus(friendID);
+  return (
+    &lt;ChatLayout width={width}>
+      &lt;FriendStatus isOnline={isOnline} />
+      {isTyping && 'Typing...'}
+    &lt;/ChatLayout>
+  );
+}
+</code></pre><p>什么时候重新渲染?</p>
+<p>如果每一个 <code>useBailout()</code> 都有权限去跳过更新，那么 <code>useWindowWidth()</code> 里面的更新就会被 <code>useFriendStatus()</code> 给阻塞，反之亦然。 <strong>这些 Hooks 会相互影响。</strong></p>
+<p>然而，如果允许<code>useBailout()</code> 在一个组件里去阻止更新的话，那么我们的 <code>ChatThread</code> 组件里的 <code>isTyping</code> 属性发生变化时也无法去更新这个组件。</p>
+<p>更糟糕的是，如果我们使用这种语义，<strong>任何新添加到 <code>ChatThread</code> 里的 Hooks 如果没有<em>同样</em>调用 <code>useBailout()</code>，那么这些 Hooks 也同样会被阻断</strong>。不然 <code>useBailout()</code> 也没有办法在 <code>useWindowWidth()</code> 和 <code>useFriendStatus()</code> 阻止更新时 “投上反对票（vote against）”。</p>
+<p><strong>结论:</strong> 🔴 <code>useBailout()</code> 违反了组合原则. 添加 <code>useBailout()</code> 到一个 Hook 里面就会影响其他 Hooks 的状态更新。我希望和 API 是<a href="/optimized-for-change/">健壮的(antifragile)</a>, 但是 <code>useBailout()</code> 的行为是完完全全相反的。</p>
+<h3>调试</h3>
+<p>像 <code>useBailout()</code> 的这样的 hook 会对调试造成什么影响？</p>
+<p>我们使用同样的列子:</p>
+<pre class="language-js"><code class="language-js">function ChatThread({ friendID, isTyping }) {
+  const width = useWindowWidth();
+  const isOnline = useFriendStatus(friendID);
+  return (
+    &lt;ChatLayout width={width}>
+      &lt;FriendStatus isOnline={isOnline} />
+      {isTyping && 'Typing...'}
+    &lt;/ChatLayout>
+  );
+}
+</code></pre><p>假设有些上层组件的属性发生了变化，但是 <code>Typing...</code> label 没有按照我们预期显示出来。这时候我们怎么调试呢？</p>
+<p><strong>通常，你会很自信的回答这个问题，我们只需要去看<em>上层组件</em>。</strong> 如果 <code>ChatThread</code> 没有获得 <code>isTyping</code> 的新值。我们可以打开渲染 <code>&lt;ChatThread isTyping={myVar} /></code> 的组件，然后去检查 <code>myVar</code> 等等。在同级组件中，我们可能在 <code>shouldComponentUpdate()</code> 中发现被阻止了，或者 <code>isTyping</code> 的值没有正确的传递过去。检查在这个链中的每一个组件通常也能轻松的定位到问题的根源。</p>
+<p>如果 <code>useBailout()</code> Hook 是一个真实的 API。在你深度地检查 <code>ChatThread</code> 和 <code>ChatThread</code> 里所有组件<em>中使用到的每一个自定义 Hook</em> 之前，你永远不知道跳过更新的原因。由于每一个父组件<em>同样</em>可以使用自定义 Hooks，这个<a href="/the-bug-o-notation/">情况（scales）</a>就变的更加复杂了。</p>
+<p>这就像你在一个抽屉柜里有一堆小抽屉的其中一个找到一把小螺丝刀一样。你永远不知道这个“坑”到底有多深。</p>
+<p><strong>结论:</strong> 🔴 <code>useBailout()</code> Hook 不仅仅破坏可组合性, 为了找到有 bug 的阻止更新代码，大大的增加了调试步骤和认知负荷 —— 在某些情况下，这是指数级别的。</p>
+<hr>
+<p>我们讨论了一个真正存在的 Hook - <code>useState()</code>，和另一个看上去是 Hook，但是实际上<em>不</em>是一个 Hook - <code>useBailout()</code> 的例子，我们比较了组合和调试，并讨论了为什么其中一个是有效的，另一个事无效的。</p>
+<p>虽然没有 “Hook 版本” 的 <code>memo()</code> 和 <code>shouldComponentUpdate()</code>，但是React确实提供了一个叫 <a href="https://reactjs.org/docs/hooks-reference.html#usememo"><code>useMemo()</code></a> 的 API. 虽然有相同的用途，但是 <code>useMemo()</code> 本身的语义是不一样的，不会遇到上面所说的问题。</p>
+<p><code>useBailout()</code> 只是一个不会像 Hook 一样工作的例子。但是也还有一些其他的 Hooks API —— 比如，<code>useProvider()</code>, <code>useCatch()</code>, 和 <code>useSuspense()</code>。</p>
+<p>现在明白为什么了吗?</p>
+<p><em>(低头嘀咕: 组合... 调试...)</em></p>
+</article> <hr> <div class="post__wrapper"><a href="/lkangd.com/post/why-isnt-x-a-hook" class="cs-outside-link fr">Why Isn’t X a Hook? →</a> <a href="/lkangd.com/post/why-do-we-write-super-props" class="cs-outside-link fl">← Why Do We Write super(props)?</a></div> <section class="cs-statement" data-v-6cb3297c><hr data-v-6cb3297c> <p class="cs-statement__text" data-v-6cb3297c>
+    讨论请发邮件到
+    <a href="mailto:lkangd@gmail.com" target="_blank" class="cs-outside-link" data-v-6cb3297c>lkangd@gmail.com</a></p> <p class="cs-statement__text" data-v-6cb3297c>未经授权，禁止转载</p> <p class="cs-statement__text" data-v-6cb3297c>通过支付宝 lkangd@foxmail.com 或赞赏码赞助此文</p> <img alt="reward-code" src="/lkangd.com/_nuxt/img/3b0f29f.jpg" class="cs-statement__reward-code" data-v-6cb3297c></section></section> <footer class="cs-footer" data-v-04c3be52><div class="cs-color-slogan cs-footer__slogan" data-v-1740ad80 data-v-04c3be52><span data-v-1740ad80>Work With </span> <span class="cs-color-slogan__placeholder" data-v-1740ad80></span> <span class="cs-color-slogan__wrapper" data-v-1740ad80>
+     
+    <span data-v-1740ad80></span></span></div> <svg xmlns="http://www.w3.org/2000/svg" class="cs-footer__logo" data-v-04c3be52><use href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo" xlink:href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo"></use></svg> <p class="cs-footer__text" data-v-04c3be52>
+    2017-2019 
+    <a href="/" target="_blank" class="cs-outside-link" data-v-04c3be52>Curtis' Spot</a></p></footer></div></div></div><script defer src="/lkangd.com/post/why-isnt-x-a-hook-zh/payload1568183296278.js"></script><script src="/lkangd.com/_nuxt/65dc7a5cd1c1cd57e7eb.js" defer></script><script src="/lkangd.com/_nuxt/7e77b8e6cd7011676488.js" defer></script><script src="/lkangd.com/_nuxt/48f65a593c854d50b992.js" defer></script><script src="/lkangd.com/_nuxt/2bc7cee40a450e203637.js" defer></script><script src="/lkangd.com/_nuxt/ef6c14c0800794aa78c2.js" defer></script><script data-n-head="ssr" type="text/javascript" data-body="true">!function(){function t(e){r=e,document.body.className=e}var r,a={light:"light",dark:"dark"};try{r=localStorage.getItem("theme")}catch(e){}window.__setPreferredTheme=function(e){t(e);try{localStorage.setItem("theme",e)}catch(e){}};var e=window.matchMedia("(prefers-color-scheme: dark)");e.addListener(function(e){window.__setPreferredTheme(a[r]||(e.matches?"dark":"light"))}),t(a[r]||(e.matches?"dark":"light"))}()</script>
+  </body>
+</html>

@@ -1,0 +1,786 @@
+<!doctype html>
+<html data-n-head-ssr>
+  <head>
+    <title>将 React 作为 UI 运行时 - Curtis' Spot</title><meta data-n-head="ssr" charset="utf-8"><meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1"><meta data-n-head="ssr" data-hid="description" name="description" content="Front-end Engineer. Bloggin about life, tech & everything I love."><link data-n-head="ssr" rel="icon" type="image/x-icon" href="/favicon.png"><link data-n-head="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC&display=swap"><link data-n-head="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:900&display=swap"><base href="/lkangd.com/"><link rel="preload" href="/lkangd.com/_nuxt/65dc7a5cd1c1cd57e7eb.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/48f65a593c854d50b992.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/2bc7cee40a450e203637.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/ef6c14c0800794aa78c2.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/7e77b8e6cd7011676488.js" as="script"><style data-vue-ssr-id="4c1d7b6c:0 08fa13ea:0 1ff19d8c:0 e7f76474:0 c85b1ba0:0 6f6dcbd0:0 fb70d044:0 230384db:0 861b946c:0">a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,html,i,iframe,img,input,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font-weight:400;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,menu,nav,section{display:block}body{line-height:1}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:none}table{border-collapse:collapse;border-spacing:0}a{backface-visibility:hidden;-webkit-backface-visibility:hidden;-webkit-touch-callout:none;text-decoration:none;cursor:pointer}li{list-style:none}body{-webkit-text-size-adjust:none;-webkit-tap-highlight-color:transparent}*{box-sizing:border-box}html{font-size:16px!important}body,html{height:100%;line-height:1;font-family:"Noto Serif SC",serif;-webkit-tap-highlight-color:transparent;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}body{margin:0 auto;scroll-behavior:smooth}strong{font-weight:700}a,button{color:inherit;outline:0;border:none;background-color:transparent;-webkit-tap-highlight-color:transparent;transition:text-shadow .3s;white-space:pre-wrap;word-break:break-all;cursor:pointer}a:active,a:focus,button:active,button:focus{outline:0!important}a:hover,button:hover{text-shadow:0 0 1px #000}::-moz-selection{background:rgba(255,233,87,.6)}::selection{background:rgba(255,233,87,.6)}.cs-outside-link{position:relative;cursor:pointer;transition:color .2s cubic-bezier(0,.8,.13,1);-webkit-text-decoration-color:transparent!important;text-decoration-color:transparent!important}.cs-outside-link:after{content:"";position:absolute;z-index:-1;top:60%;left:-.1em;right:-.1em;bottom:0;transition:top .2s cubic-bezier(0,.8,.13,1);background-color:var(--yellow)}.cs-outside-link:hover{color:#121314}.cs-outside-link:hover:after{top:0}.cs-nav-link{position:relative}.cs-nav-link:before{content:"";position:absolute;height:1px;bottom:3px;left:0;right:0;background-color:var(--site-nav);transform-origin:bottom left;transform:scaleX(1);transition:transform .3s ease-in-out}.cs-nav-link:hover:before{transform:scaleX(0);transform-origin:bottom right}.cs-container{margin:0 auto;padding:0 32px;max-width:764px}.cs-container-big{margin:0 auto;padding:0 32px;max-width:1024px}.cs-split-title{height:0;font-weight:700;line-height:0;text-transform:uppercase;text-align:center;border-bottom:1px solid var(--hr);margin-top:48px;margin-bottom:20px;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.cs-split-title>span{padding-left:.5em;padding-right:.5em;font-weight:700;color:var(--text-normal);background-color:var(--bg)}.cs-title{font-size:24px;line-height:34px;font-weight:700}.cs-title,.cs-title-big{margin:20px auto;font-family:Montserrat,serif;color:var(--text-title)}.cs-title-big{font-size:32px;line-height:42px;font-weight:900}.cs-text{margin-bottom:10px;line-height:1.3;color:var(--text-normal);word-break:break-all;white-space:wrap}.cs-text a{text-decoration:underline}.cs-text small{font-size:.8em}.cs-date{margin:24px 0 32px;line-height:1.7;color:var(--site-desc)}.cs-list{margin:16px auto;padding-left:40px;list-style-type:disc}.cs-list__item{display:list-item;list-style:inherit;line-height:1.5;word-break:break-all;white-space:wrap}.fl{float:left}.fr{float:right}body{--yellow:rgba(255,233,87,0.6);--bg:#fff;--header:var(--pink);--text-normal:#000;--text-title:#222;--text-link:#d23669;--hr:#a7adba;--footer-bg:#fafafa;--logo:#000;--site-desc:#65737e;--site-nav:#343d46;--inline-code-fg:rgba(49,51,51,0.9);--inline-code-bg:rgba(255,233,87,0.4);color:var(--text-normal);background-color:var(--bg)}body.dark{--yellow:#373c49;--bg:#282c35;--header:#fff;--text-normal:hsla(0,0%,100%,0.88);--text-title:#fff;--text-link:var(--pink);--hr:hsla(0,0%,100%,0.2);--footer-bg:#242830;--logo:#fff;--site-desc:hsla(0,0%,100%,0.88);--site-nav:hsla(0,0%,100%,0.88);--inline-code-fg:#e6e6e6;--inline-code-bg:#373c49;-webkit-font-smoothing:antialiased}code[class*=language-],pre[class*=language-]{color:#fff;background:0 0;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;font-feature-settings:normal;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;margin-bottom:0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{overflow:auto;padding:1.3125rem}pre[class*=language-]::-moz-selection{background:#27292a}pre[class*=language-]::selection{background:#27292a}pre[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection{text-shadow:none;background:hsla(0,0%,100%,.15)}pre[class*=language-] ::selection,pre[class*=language-]::selection{text-shadow:none;background:hsla(0,0%,100%,.15)}:not(pre)>code[class*=language-]{border-radius:.3em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:.15em .2em .05em;white-space:normal}.token.attr-name{color:#addb67;font-style:italic}.token.comment{color:#809393}.token.string,.token.url{color:#addb67}.token.variable{color:#d6deeb}.token.number{color:#f78c6c}.token.builtin,.token.char,.token.constant,.token.function{color:#82aaff}.token.punctuation{color:#c792ea}.token.doctype,.token.selector{color:#c792ea;font-style:italic}.token.class-name{color:#ffcb8b}.token.keyword,.token.operator,.token.tag{color:#ffa7c4}.token.boolean{color:#ff5874}.token.property{color:#80cbc4}.token.namespace{color:#b2ccd6}pre[data-line]{padding:1em 0 1em 3em;position:relative}.gatsby-highlight-code-line{background-color:#022a4b;display:block;padding-right:1em;padding-left:1.25em;border-left:.25em solid #ffa7c4}.gatsby-highlight,.gatsby-highlight-code-line{margin-right:-1.3125rem;margin-left:-1.3125rem}.gatsby-highlight{margin-bottom:1.75rem;border-radius:10px;background:#011627;-webkit-overflow-scrolling:touch;overflow:auto}@media (max-width:672px){.gatsby-highlight{border-radius:0}}.gatsby-highlight pre[class*=language-]{float:left;min-width:100%}.line-highlight{border-left:4px solid #ffa7c4}.line-highlight:after,.line-highlight:before{display:none}.cs-loading[data-v-0dfe3184]{position:fixed;top:0;left:0;z-index:100;width:100%;height:100%;background-color:var(--bg);will-change:opacity;transition:opacity .5s .4s}.cs-loading.loaded[data-v-0dfe3184]{opacity:0}.cs-loading .main[data-v-0dfe3184]{position:absolute;top:calc(50% - 63px);left:calc(50% - 63px);z-index:1;width:126px;height:126px}.cs-loading .main.out-of-window .line1-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line1[data-v-0dfe3184],.cs-loading .main.out-of-window .line3-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line3[data-v-0dfe3184],.cs-loading .main.out-of-window .line5[data-v-0dfe3184],.cs-loading .main.out-of-window .line7[data-v-0dfe3184],.cs-loading .main.out-of-window .line9[data-v-0dfe3184]{transform:rotate(45deg) translateY(100vh)}.cs-loading .main.out-of-window .line10[data-v-0dfe3184],.cs-loading .main.out-of-window .line2-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line2[data-v-0dfe3184],.cs-loading .main.out-of-window .line4-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line4-3[data-v-0dfe3184],.cs-loading .main.out-of-window .line4[data-v-0dfe3184],.cs-loading .main.out-of-window .line6[data-v-0dfe3184],.cs-loading .main.out-of-window .line8-1[data-v-0dfe3184],.cs-loading .main.out-of-window .line8[data-v-0dfe3184]{transform:rotate(45deg) translateY(-100vh)}.cs-loading .main.out-of-window .text[data-v-0dfe3184]{opacity:0;transition:opacity .5s}.cs-loading .main .line[data-v-0dfe3184]{position:absolute;z-index:3;width:7px;background:var(--text-normal);will-change:transform;transform:rotate(45deg)}.cs-loading .main .line.line1[data-v-0dfe3184]{top:51px;left:5px;height:17px;transition:transform .5s}.cs-loading .main .line.line1-2[data-v-0dfe3184]{top:-3px;left:50px;height:36px;transition:transform .5s}.cs-loading .main .line.line2[data-v-0dfe3184]{top:55px;left:9px;height:27px;transition:transform .5s}.cs-loading .main .line.line2-2[data-v-0dfe3184]{top:-5px;left:56px;height:53px;transition:transform .5s}.cs-loading .main .line.line3[data-v-0dfe3184]{top:58px;left:15px;height:35px;transition:transform .5s .1s}.cs-loading .main .line.line3-2[data-v-0dfe3184]{top:-2px;left:63px;height:59px;transition:transform .5s .1s}.cs-loading .main .line.line4[data-v-0dfe3184]{top:55px;left:24px;height:48px;transition:transform .5s .1s}.cs-loading .main .line.line4-2[data-v-0dfe3184]{top:27px;left:60px;height:33px;transition:transform .5s .1s}.cs-loading .main .line.line4-3[data-v-0dfe3184]{top:9px;left:84px;height:21px;transition:transform .5s .1s}.cs-loading .main .line.line5[data-v-0dfe3184]{top:4px;left:54px;height:117px;transition:transform .5s .2s}.cs-loading .main .line.line6[data-v-0dfe3184]{top:15px;left:59px;height:111px;transition:transform .5s .2s}.cs-loading .main .line.line7[data-v-0dfe3184]{top:16px;left:69px;height:115px;transition:transform .5s .3s}.cs-loading .main .line.line8[data-v-0dfe3184]{top:56px;left:63px;height:72px;transition:transform .5s .3s}.cs-loading .main .line.line8-1[data-v-0dfe3184]{top:30px;left:116px;height:18px;transition:transform .5s .3s}.cs-loading .main .line.line9[data-v-0dfe3184]{top:67px;left:70px;height:61px;transition:transform .5s .4s}.cs-loading .main .line.line10[data-v-0dfe3184]{top:82px;left:78px;height:40px;transition:transform .5s .4s}.cs-loading .main .text[data-v-0dfe3184]{position:absolute;bottom:-18%;left:0;width:100%;font-size:18px;font-weight:700;color:var(--text-normal);text-align:center;will-change:opacity;transition:opacity .5s .5s}.cs-header[data-v-e2fcdc26]{padding-top:64px}.cs-header__logo[data-v-e2fcdc26]{position:relative;left:4px;display:block;margin:0 auto;width:128px;height:128px;color:var(--logo);transition:color .5s;cursor:pointer}.cs-header__logo[data-v-e2fcdc26]:hover{color:#ffe957}.cs-header__text[data-v-e2fcdc26]{margin:16px 0;padding:0 32px;font-weight:700;line-height:1.4;text-align:center;color:var(--text-normal)}.cs-header__text--light[data-v-e2fcdc26]{color:var(--site-desc);font-weight:500}.cs-nav[data-v-3775b65b]{padding:32px;font-size:0;text-align:center}.cs-nav__item[data-v-3775b65b]{display:inline-block;padding:0 8px;color:var(--site-nav);cursor:pointer}.cs-nav__item>a[data-v-3775b65b]{font-size:16px;font-weight:700;line-height:1.4}.post{background-color:transparent}.post hr{margin:64px 0;border:0;border-bottom:1px solid var(--hr)}.post .cs-post-article a{padding:0 4px;text-decoration:underline}.post .cs-post-article h2{margin:24px 0;font-size:20px;font-weight:700}.post .cs-post-article h3{margin:24px 0;font-size:18px;font-weight:700}.post .cs-post-article li,.post .cs-post-article p{margin:24px 0;font-size:16px;line-height:28px;color:var(--text-normal)}.post .cs-post-article code:not([class*=language-]){padding:0 4px;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;color:var(--inline-code-fg);background-color:var(--inline-code-bg);border-radius:3px}.post .cs-post-article strong em{margin:0 6px;font-weight:700}.post .cs-post-article hr{margin:30px 0;border:0;border-bottom:1px solid var(--hr)}.post .cs-post-article em{margin:0 6px}.post .cs-post-article pre{background-color:#011627;border-radius:10px}.post .cs-post-article ul li{font-size:16px;line-height:28px;list-style:disc}.post .cs-post-article ol li{list-style:decimal}.post .cs-post-article img{width:100%;height:auto}.post__wrapper{overflow:hidden}.post__wrapper>a{margin:20px 0}.cs-statement[data-v-6cb3297c]{text-align:center}.cs-statement hr[data-v-6cb3297c]{margin:64px 0;border:0;border-bottom:1px solid var(--hr)}.cs-statement__text[data-v-6cb3297c]{margin:8px 0;line-height:1.7;color:var(--text-normal)}.cs-statement__reward-code[data-v-6cb3297c]{margin-top:50px;max-width:30%;height:auto}@media (max-width:375px){.cs-statement .cs-statement__reward-code[data-v-6cb3297c]{max-width:76%!important}}.cs-footer[data-v-04c3be52]{position:relative;margin-top:40px;padding:40px 40px 20px;color:#9aa0ac;text-align:center}.cs-footer[data-v-04c3be52]:after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;z-index:-2;background-color:var(--footer-bg)}.cs-footer__logo[data-v-04c3be52]{display:block;margin:18px auto;width:28px;height:28px;color:var(--logo)}.cs-footer__text>a[data-v-04c3be52],.cs-footer__text[data-v-04c3be52]{font-weight:600}.cs-footer__text[data-v-04c3be52]{margin:18px 0}.cs-footer__slogan[data-v-04c3be52]{display:inline-block;vertical-align:middle;font-size:14px}.cs-color-slogan[data-v-1740ad80]{display:inline-block;position:relative;font-family:serif;color:var(--text-normal);background-color:transparent}.cs-color-slogan__placeholder[data-v-1740ad80]{opacity:0}.cs-color-slogan__wrapper[data-v-1740ad80]{position:absolute;top:0;white-space:nowrap}</style>
+  </head>
+  <body>
+    <div data-server-rendered="true" id="__nuxt"><!----><div id="__layout"><div><header class="cs-header" data-v-e2fcdc26><svg xmlns="http://www.w3.org/2000/svg" class="cs-header__logo" data-v-e2fcdc26><use href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo" xlink:href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo"></use></svg> <p class="cs-header__text" data-v-e2fcdc26>Curtis Liong</p> <p class="cs-header__text cs-header__text--light" data-v-e2fcdc26><a href="https://en.wikipedia.org/wiki/Front-end_web_development" target="_blank" class="cs-outside-link" data-v-e2fcdc26>Front-end</a> Engineer. Blogging about life, tech & everything I love.
+  </p></header> <nav class="cs-nav" data-v-3775b65b><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/" class="cs-nav-link nuxt-link-active" data-v-3775b65b>Home</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/tech/" class="cs-nav-link" data-v-3775b65b>Tech</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/think/" class="cs-nav-link" data-v-3775b65b>Think</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/fun/" class="cs-nav-link" data-v-3775b65b>Fun</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/about/" class="cs-nav-link" data-v-3775b65b>About</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/donate/" class="cs-nav-link" data-v-3775b65b>Donate</a></div> <div class="cs-nav__item" data-v-3775b65b><a href="/feed.xml" target="_blank" class="cs-nav-link" data-v-3775b65b>RSS</a></div> <div class="cs-nav__item" data-v-3775b65b><a href="/sitemap.xml" target="_blank" class="cs-nav-link" data-v-3775b65b>Sitemap</a></div></nav> <section class="post cs-container-big"><h2 class="cs-title-big">将 React 作为 UI 运行时</h2> <p class="cs-date">02, Feb, 2019•11.2k words•🍱🍱🍱 42 min read</p> <article class="cs-post-article"><p>大多数教程把 React 称作是一个 UI 库。这是有道理的，因为 React 就是一个 UI 库。正如官网上的标语所说的那样。</p>
+<p><img src="./react.png" alt='React homepage screenshot: "A JavaScript library for building user interfaces"'></p>
+<p>我曾经写过关于构建<a href="/the-elements-of-ui-engineering/">用户界面</a>会遇到的难题一文。但是本篇文章将以一种不同的方式来讲述 React — 因为它更像是一种<a href="https://en.wikipedia.org/wiki/Runtime_system">编程运行时</a>。</p>
+<p><strong>本篇文章不会教你任何有关如何创建用户界面的技巧。</strong> 但是它可能会帮助你更深入地理解 React 编程模型。</p>
+<hr>
+<p><strong>注意：如果你还在学习 React ，请移步到<a href="https://reactjs.org/docs/getting-started.html#learn-react">官方文档</a>进行学习</strong></p>
+<p><font size="60">⚠️</font></p>
+<p><strong>本篇文章将会非常深入 — 所以并不适合初学者阅读。</strong> 在本篇文章中，我会从最佳原则的角度尽可能地阐述 React 编程模型。我不会解释如何使用它 — 而是讲解它的原理。</p>
+<p>文章面向有经验的程序员和那些使用过其他 UI 库但在项目中权衡利弊后最终选择了 React 的人，我希望它会对你有所帮助！</p>
+<p><strong>许多人成功使用了 React 多年却从未考虑过下面我将要讲述的主题。</strong> 这肯定是从程序员的角度来看待 React ，而不是以<a href="http://mrmrs.cc/writing/2016/04/21/developing-ui/">设计者</a>的角度。但我并不认为站在两个不同的角度来重新认识 React 会有什么坏处。</p>
+<p>话不多说，让我们开始深入理解 React 吧！</p>
+<hr>
+<h2>宿主树</h2>
+<p>一些程序输出数字。另一些程序输出诗词。不同的语言和它们的运行时通常会对特定的一组用例进行优化，而 React 也不例外。</p>
+<p>React 程序通常会输出<strong>一棵会随时间变化的树。</strong> 它有可能是一棵 <a href="https://www.npmjs.com/package/react-dom">DOM 树</a> ，<a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html">iOS 视图层</a> ，<a href="https://react-pdf.org/">PDF 原语</a> ，又或是 <a href="https://reactjs.org/docs/test-renderer.html">JSON 对象</a> 。然而，通常我们希望用它来展示 UI 。我们称它为“宿主树”，因为它往往是 React 之外宿主环境中的一部分 — 就像 DOM 或 iOS 。宿主树通常有<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild">它</a><a href="https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview">自己</a>的命令式 API 。而 React 就是它上面的那一层。</p>
+<p>所以到底 React 有什么用呢？非常抽象地，它可以帮助你编写可预测的，并且能够操控复杂的宿主树进而响应像用户交互、网络响应、定时器等外部事件的应用程序。</p>
+<p>当专业的工具可以施加特定的约束且能从中获益时，它比一般的工具要好。React 就是这样的典范，并且它坚持两个原则：</p>
+<ul>
+<li><strong>稳定性。</strong> 宿主树是相对稳定的，大多数情况的更新并不会从根本上改变其整体结构。如果应用程序每秒都会将其所有可交互的元素重新排列为完全不同的组合，那将会变得难以使用。那个按钮去哪了？为什么我的屏幕在跳舞？</li>
+<li><strong>通用性。</strong> 宿主树可以被拆分为外观和行为一致的 UI 模式（例如按钮、列表和头像）而不是随机的形状。</li>
+</ul>
+<p><strong>这些原则恰好适用于大多数 UI 。</strong> 然而，当输出没有稳定的“模式”时 React 并不适用。例如，React 也许可以帮助你编写一个 Twitter 客户端，但对于一个 <a href="https://www.youtube.com/watch?v=Uzx9ArZ7MUU">3D 管道屏幕保护程序</a> 并不会起太大作用。</p>
+<h2>宿主实例</h2>
+<p>宿主树由节点组成，我们称之为“宿主实例”。</p>
+<p>在 DOM 环境中，宿主实例就是我们通常所说的 DOM 节点 — 就像当你调用 <code>document.createElement('div')</code> 时获得的对象。在 iOS 中，宿主实例可以是从 JavaScript 到原生视图唯一标识的值。</p>
+<p>宿主实例有它们自己的属性（例如 <code>domNode.className</code> 或者 <code>view.tintColor</code> ）。它们也有可能将其他的宿主实例作为子项。</p>
+<p>（这和 React 没有任何联系 — 因为我在讲述宿主环境。）</p>
+<p>通常会有原生的 API 用于操控这些宿主实例。例如，在 DOM 环境中会提供像 <code>appendChild</code>、<code>removeChild</code>、<code>setAttribute</code> 等一系列的 API 。在 React 应用中，通常你不会调用这些 API ，因为那是 React 的工作。</p>
+<h2>渲染器</h2>
+<p>渲染器教会 React 如何与特定的宿主环境通信以及如何管理它的宿主实例。React DOM、React Native 甚至 <a href="https://mobile.twitter.com/vadimdemedes/status/1089344289102942211">Ink</a> 都可以称作 React 渲染器。你也可以<a href="https://github.com/facebook/react/tree/master/packages/react-reconciler">创建自己的 React 渲染器</a> 。</p>
+<p>React 渲染器能以下面两种模式之一进行工作。</p>
+<p>绝大多数渲染器都被用作“突变”模式。这种模式正是 DOM 的工作方式：我们可以创建一个节点，设置它的属性，在之后往里面增加或者删除子节点。宿主实例是完全可变的。</p>
+<p>但 React 也能以”不变“模式工作。这种模式适用于那些并不提供像 <code>appendChild</code> 的 API 而是克隆双亲树并始终替换掉顶级子树的宿主环境。在宿主树级别上的不可变性使得多线程变得更加容易。<a href="https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018">React Fabric</a> 就利用了这一模式。</p>
+<p>作为 React 的使用者，你永远不需要考虑这些模式。我只想强调 React 不仅仅只是从一种模式转换到另一种模式的适配器。它的用处在于以一种更好的方式操控宿主实例而不用在意那些低级视图 API 范例。</p>
+<h2>React 元素</h2>
+<p>在宿主环境中，一个宿主实例（例如 DOM 节点）是最小的构建单元。而在 React 中，最小的构建单元是 React 元素。</p>
+<p>React 元素是一个普通的 JavaScript 对象。它用来描述一个宿主实例。</p>
+<pre class="language-jsx"><code class="language-jsx">// JSX 是用来描述这些对象的语法糖。
+// &lt;button className="blue" />
+{
+  type: 'button',
+  props: { className: 'blue' }
+}
+</code></pre><p>React 元素是轻量级的因为没有宿主实例与它绑定在一起。同样的，它只是对你想要在屏幕上看到的内容的描述。</p>
+<p>就像宿主实例一样，React 元素也能形成一棵树：</p>
+<pre class="language-jsx"><code class="language-jsx">// JSX 是用来描述这些对象的语法糖。
+// &lt;dialog>
+//   &lt;button className="blue" />
+//   &lt;button className="red" />
+// &lt;/dialog>
+{
+  type: 'dialog',
+  props: {
+    children: [{
+      type: 'button',
+      props: { className: 'blue' }
+    }, {
+      type: 'button',
+      props: { className: 'red' }
+    }]
+  }
+}
+</code></pre><p><em>(注意：我省略了一些对此解释不重要的<a href="/why-do-react-elements-have-typeof-property/">属性</a>)</em></p>
+<p>但是，请记住 <strong>React 元素并不是永远存在的</strong> 。它们总是在重建和删除之间不断循环着。</p>
+<p>React 元素具有不可变性。例如，你不能改变 React 元素中的子元素或者属性。如果你想要在稍后渲染一些不同的东西，你需要从头创建新的 React 元素树来描述它。</p>
+<p>我喜欢将 React 元素比作电影中放映的每一帧。它们捕捉 UI 在特定的时间点应该是什么样子。它们永远不会再改变。</p>
+<h2>入口</h2>
+<p>每一个 React 渲染器都有一个“入口”。正是那个特定的 API 让我们告诉 React ，将特定的 React 元素树渲染到真正的宿主实例中去。</p>
+<p>例如，React DOM 的入口就是 <code>ReactDOM.render</code> ：</p>
+<pre class="language-jsx"><code class="language-jsx">ReactDOM.render(
+  // { type: 'button', props: { className: 'blue' } }
+  &lt;button className="blue" />,
+  document.getElementById('container')
+);
+</code></pre><p>当我们调用 <code>ReactDOM.render(reactElement, domContainer)</code> 时，我们的意思是：<strong>“亲爱的 React ，将我的 <code>reactElement</code> 映射到 <code>domContaienr</code> 的宿主树上去吧。“</strong></p>
+<p>React 会查看 <code>reactElement.type</code> （在我们的例子中是 <code>button</code> ）然后告诉 React DOM 渲染器创建对应的宿主实例并设置正确的属性：</p>
+<pre data-line="3,4," 3,4="" class="language-jsx"><code 3,4="" class="language-jsx">// 在 ReactDOM 渲染器内部（简化版）
+function createHostInstance(reactElement) {
+  let domNode = document.createElement(reactElement.type);
+  domNode.className = reactElement.props.className;
+  return domNode;
+}
+</code></pre><p>在我们的例子中，React 会这样做：</p>
+<pre data-line="1,2," 1,2="" class="language-jsx"><code 1,2="" class="language-jsx">let domNode = document.createElement('button');
+domNode.className = 'blue';
+
+domContainer.appendChild(domNode);
+</code></pre><p>如果 React 元素在 <code>reactElement.props.children</code> 中含有子元素，React 会在第一次渲染中递归地为它们创建宿主实例。</p>
+<h2>协调</h2>
+<p>如果我们用同一个 container 调用 <code>ReactDOM.render()</code> 两次会发生什么呢？</p>
+<pre data-line="2,11," 2,11="" class="language-jsx"><code 2,11="" class="language-jsx">ReactDOM.render(
+  &lt;button className="blue" />,
+  document.getElementById('container')
+);
+
+// ... 之后 ...
+
+// 应该替换掉 button 宿主实例吗？
+// 还是在已有的 button 上更新属性？
+ReactDOM.render(
+  &lt;button className="red" />,
+  document.getElementById('container')
+);
+</code></pre><p>同样的，React 的工作是将 React 元素树映射到宿主树上去。确定该对宿主实例做什么来响应新的信息有时候叫做<a href="https://reactjs.org/docs/reconciliation.html">协调</a> 。</p>
+<p>有两种方法可以解决它。简化版的 React 会丢弃已经存在的树然后从头开始创建它：</p>
+<pre class="language-jsx"><code class="language-jsx">let domContainer = document.getElementById('container');
+// 清除掉原来的树
+domContainer.innerHTML = '';
+// 创建新的宿主实例树
+let domNode = document.createElement('button');
+domNode.className = 'red';
+domContainer.appendChild(domNode);
+</code></pre><p>但是在 DOM 环境下，这样的做法效率低下而且会丢失像 focus、selection、scroll 等许多状态。相反，我们希望 React 这样做：</p>
+<pre class="language-jsx"><code class="language-jsx">let domNode = domContainer.firstChild;
+// 更新已有的宿主实例
+domNode.className = 'red';
+</code></pre><p>换句话说，React 需要决定何时更新一个已有的宿主实例来匹配新的 React 元素，何时该重新创建新的宿主实例。</p>
+<p>这就引出了一个识别问题。React 元素可能每次都不相同，到底什么时候才该从概念上引用同一个宿主实例呢？</p>
+<p>在我们的例子中，它很简单。我们之前渲染了 <code>&lt;button></code> 作为第一个（也是唯一）的子元素，接下来我们想要在同一个地方再次渲染 <code>&lt;button></code> 。在宿主实例中我们已经有了一个 <code>&lt;button></code> 为什么还要重新创建呢？让我们重用它。</p>
+<p>这与 React 如何思考并解决这类问题已经很接近了。</p>
+<p><strong>如果相同的元素类型在同一个地方先后出现两次，React 会重用已有的宿主实例。</strong></p>
+<p>这里有一个例子，其中的注释大致解释了 React 是如何工作的：</p>
+<pre data-line="9,10,16,26,27," 9,10,16,26,27="" class="language-jsx"><code 9,10,16,26,27="" class="language-jsx">// let domNode = document.createElement('button');
+// domNode.className = 'blue';
+// domContainer.appendChild(domNode);
+ReactDOM.render(
+  &lt;button className="blue" />,
+  document.getElementById('container')
+);
+
+// 能重用宿主实例吗？能！(button → button)
+// domNode.className = 'red';
+ReactDOM.render(
+  &lt;button className="red" />,
+  document.getElementById('container')
+);
+
+// 能重用宿主实例吗？不能！(button → p)
+// domContainer.removeChild(domNode);
+// domNode = document.createElement('p');
+// domNode.textContent = 'Hello';
+// domContainer.appendChild(domNode);
+ReactDOM.render(
+  &lt;p>Hello&lt;/p>,
+  document.getElementById('container')
+);
+
+// 能重用宿主实例吗？能！(p → p)
+// domNode.textContent = 'Goodbye';
+ReactDOM.render(
+  &lt;p>Goodbye&lt;/p>,
+  document.getElementById('container')
+);
+</code></pre><p>同样的启发式方法也适用于子树。例如，当我们在 <code>&lt;dialog></code> 中新增两个 <code>&lt;button></code> ，React 会先决定是否要重用 <code>&lt;dialog></code> ，然后为每一个子元素重复这个决定步骤。</p>
+<h2>条件</h2>
+<p>如果 React 在渲染更新前后只重用那些元素类型匹配的宿主实例，那当遇到包含条件语句的内容时又该如何渲染呢？</p>
+<p>假设我们只想首先展示一个输入框，但之后要在它之前渲染一条信息：</p>
+<pre data-line="12," 12="" class="language-jsx"><code 12="" class="language-jsx">// 第一次渲染
+ReactDOM.render(
+  &lt;dialog>
+    &lt;input />
+  &lt;/dialog>,
+  domContainer
+);
+
+// 下一次渲染
+ReactDOM.render(
+  &lt;dialog>
+    &lt;p>I was just added here!&lt;/p>
+    &lt;input />
+  &lt;/dialog>,
+  domContainer
+);
+</code></pre><p>在这个例子中，<code>&lt;input></code> 宿主实例会被重新创建。React 会遍历整个元素树，并将其与先前的版本进行比较：</p>
+<ul>
+<li><code>dialog → dialog</code> ：能重用宿主实例吗？<strong>能 — 因为类型是匹配的。</strong>
+<ul>
+<li><code>input → p</code> ：能重用宿主实例吗？<strong>不能，类型改变了！</strong> 需要删除已有的 <code>input</code> 然后重新创建一个 <code>p</code> 宿主实例。</li>
+<li><code>(nothing) → input</code> ：需要重新创建一个 <code>input</code> 宿主实例。</li>
+</ul>
+</li>
+</ul>
+<p>因此，React 会像这样执行更新：</p>
+<pre data-line="1,2,8,9," 1,2,8,9="" class="language-jsx"><code 1,2,8,9="" class="language-jsx">let oldInputNode = dialogNode.firstChild;
+dialogNode.removeChild(oldInputNode);
+
+let pNode = document.createElement('p');
+pNode.textContent = 'I was just added here!';
+dialogNode.appendChild(pNode);
+
+let newInputNode = document.createElement('input');
+dialogNode.appendChild(newInputNode);
+</code></pre><p>这样的做法并不科学因为事实上 <code>&lt;input></code> 并没有被 <code>&lt;p></code> 所替代 — 它只是移动了位置而已。我们不希望因为重建 DOM 而丢失了 selection、focus 等状态以及其中的内容。</p>
+<p>虽然这个问题很容易解决（在下面我会马上讲到），但这个问题在 React 应用中并不常见。而当我们探讨为什么会这样时却很有意思。</p>
+<p>事实上，你很少会直接调用 <code>ReactDOM.render</code> 。相反，在 React 应用中程序往往会被拆分成这样的函数：</p>
+<pre class="language-jsx"><code class="language-jsx">function Form({ showMessage }) {
+  let message = null;
+  if (showMessage) {
+    message = &lt;p>I was just added here!&lt;/p>;
+  }
+  return (
+    &lt;dialog>
+      {message}
+      &lt;input />
+    &lt;/dialog>
+  );
+}
+</code></pre><p>这个例子并不会遇到刚刚我们所描述的问题。让我们用对象注释而不是 JSX 也许可以更好地理解其中的原因。来看一下 <code>dialog</code> 中的子元素树：</p>
+<pre data-line="12-15," 12-15="" class="language-jsx"><code 12-15="" class="language-jsx">function Form({ showMessage }) {
+  let message = null;
+  if (showMessage) {
+    message = {
+      type: 'p',
+      props: { children: 'I was just added here!' }
+    };
+  }
+  return {
+    type: 'dialog',
+    props: {
+      children: [
+        message,
+        { type: 'input', props: {} }
+      ]
+    }
+  };
+}
+</code></pre><p><strong>不管 <code>showMessage</code> 是 <code>true</code> 还是 <code>false</code> ，在渲染的过程中 <code>&lt;input></code> 总是在第二个孩子的位置且不会改变。</strong></p>
+<p>如果 <code>showMessage</code> 从 <code>false</code> 改变为 <code>true</code> ，React 会遍历整个元素树，并与之前的版本进行比较：</p>
+<ul>
+<li><code>dialog → dialog</code> ：能够重用宿主实例吗？<strong>能 — 因为类型匹配。</strong>
+<ul>
+<li><code>(null) → p</code> ：需要插入一个新的 <code>p</code> 宿主实例。</li>
+<li><code>input → input</code> ：能够重用宿主实例吗？<strong>能 — 因为类型匹配。</strong></li>
+</ul>
+</li>
+</ul>
+<p>之后 React 大致会像这样执行代码：</p>
+<pre class="language-jsx"><code class="language-jsx">let inputNode = dialogNode.firstChild;
+let pNode = document.createElement('p');
+pNode.textContent = 'I was just added here!';
+dialogNode.insertBefore(pNode, inputNode);
+</code></pre><p>这样一来输入框中的状态就不会丢失了。</p>
+<h2>列表</h2>
+<p>比较树中同一位置的元素类型对于是否该重用还是重建相应的宿主实例往往已经足够。</p>
+<p>但这只适用于当子元素是静止的并且不会重排序的情况。在上面的例子中，即使 <code>message</code> 不存在，我们仍然知道输入框在消息之后，并且再没有其他的子元素。</p>
+<p>而当遇到动态列表时，我们不能确定其中的顺序总是一成不变的。</p>
+<pre class="language-jsx"><code class="language-jsx">function ShoppingList({ list }) {
+  return (
+    &lt;form>
+      {list.map(item => (
+        &lt;p>
+          You bought {item.name}
+          &lt;br />
+          Enter how many do you want: &lt;input />
+        &lt;/p>
+      ))}
+    &lt;/form>
+  )
+}
+</code></pre><p>如果我们的商品列表被重新排序了，React 只会看到所有的 <code>p</code> 以及里面的 <code>input</code> 拥有相同的类型，并不知道该如何移动它们。（在 React 看来，虽然这些商品本身改变了，但是它们的顺序并没有改变。）</p>
+<p>所以 React 会对这十个商品进行类似如下的重排序：</p>
+<pre class="language-jsx"><code class="language-jsx">for (let i = 0; i &lt; 10; i++) {
+  let pNode = formNode.childNodes[i];
+  let textNode = pNode.firstChild;
+  textNode.textContent = 'You bought ' + items[i].name;
+}
+</code></pre><p>React 只会对其中的每个元素进行更新而不是将其重新排序。这样做会造成性能上的问题和潜在的 bug 。例如，当商品列表的顺序改变时，原本在第一个输入框的内容仍然会存在于现在的第一个输入框中 — 尽管事实上在商品列表里它应该代表着其他的商品！</p>
+<p><strong>这就是为什么每次当输出中包含元素数组时，React 都会让你指定一个叫做 <code>key</code> 的属性：</strong></p>
+<pre data-line="5," 5="" class="language-jsx"><code 5="" class="language-jsx">function ShoppingList({ list }) {
+  return (
+    &lt;form>
+      {list.map(item => (
+        &lt;p key={item.productId}>
+          You bought {item.name}
+          &lt;br />
+          Enter how many do you want: &lt;input />
+        &lt;/p>
+      ))}
+    &lt;/form>
+  )
+}
+</code></pre><p><code>key</code> 给予 React 判断子元素是否真正相同的能力，即使在渲染前后它在父元素中的位置不是相同的。</p>
+<p>当 React 在 <code>&lt;form></code> 中发现 <code>&lt;p key="42"></code> ，它就会检查之前版本中的 <code>&lt;form></code> 是否同样含有 <code>&lt;p key="42"></code> 。即使 <code>&lt;form></code> 中的子元素们改变位置后，这个方法同样有效。在渲染前后当 key 仍然相同时，React 会重用先前的宿主实例，然后重新排序其兄弟元素。</p>
+<p>需要注意的是 <code>key</code> 只与特定的父亲 React 元素相关联，比如 <code>&lt;form></code> 。React 并不会去匹配父元素不同但 key 相同的子元素。（React 并没有惯用的支持对在不重新创建元素的情况下让宿主实例在不同的父元素之间移动。）</p>
+<p>给 <code>key</code> 赋予什么值最好呢？最好的答案就是：<strong>什么时候你会说一个元素不会改变即使它在父元素中的顺序被改变？</strong> 例如，在我们的商品列表中，商品本身的 ID 是区别于其他商品的唯一标识，那么它就最适合作为 <code>key</code> 。</p>
+<h2>组件</h2>
+<p>我们已经知道函数会返回 React 元素：</p>
+<pre class="language-jsx"><code class="language-jsx">function Form({ showMessage }) {
+  let message = null;
+  if (showMessage) {
+    message = &lt;p>I was just added here!&lt;/p>;
+  }
+  return (
+    &lt;dialog>
+      {message}
+      &lt;input />
+    &lt;/dialog>
+  );
+}
+</code></pre><p>这些函数被叫做组件。它们让我们可以打造自己的“工具箱”，例如按钮、头像、评论框等等。组件就像 React 的面包和黄油。</p>
+<p>组件接受一个参数 — 对象哈希。它包含“props”（“属性”的简称）。在这里 <code>showMessage</code> 就是一个 prop 。它们就像是具名参数一样。</p>
+<h2>纯净</h2>
+<p>React 组件中对于 props 应该是纯净的。</p>
+<pre class="language-jsx"><code class="language-jsx">function Button(props) {
+  // 🔴 没有作用
+  props.isActive = true;
+}
+</code></pre><p>通常来说，突变在 React 中不是惯用的。（我们会在之后讲解如何用更惯用的方式来更新 UI 以响应事件。）</p>
+<p>不过，局部的突变是绝对允许的：</p>
+<pre data-line="2,5," 2,5="" class="language-jsx"><code 2,5="" class="language-jsx">function FriendList({ friends }) {
+  let items = [];
+  for (let i = 0; i &lt; friends.length; i++) {
+    let friend = friends[i];
+    items.push(
+      &lt;Friend key={friend.id} friend={friend} />
+    );
+  }
+  return &lt;section>{items}&lt;/section>;
+}
+</code></pre><p>当我们在函数组件内部创建 <code>items</code> 时不管怎样改变它都行，只要这些突变发生在将其作为最后的渲染结果之前。所以并不需要重写你的代码来避免局部突变。</p>
+<p>同样地，惰性初始化是被允许的即使它不是完全“纯净”的：</p>
+<pre class="language-jsx"><code class="language-jsx">function ExpenseForm() {
+  // 只要不影响其他组件这是被允许的：
+  SuperCalculator.initializeIfNotReady();
+
+  // 继续渲染......
+}
+</code></pre><p>只要调用组件多次是安全的，并且不会影响其他组件的渲染，React 并不关心你的代码是否像严格的函数式编程一样百分百纯净。在 React 中，<a href="https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation">幂等性</a>比纯净性更加重要。</p>
+<p>也就是说，在 React 组件中不允许有用户可以直接看到的副作用。换句话说，仅调用函数式组件时不应该在屏幕上产生任何变化。</p>
+<h2>递归</h2>
+<p>我们该如何在组件中使用组件？组件属于函数因此我们可以直接进行调用：</p>
+<pre class="language-jsx"><code class="language-jsx">let reactElement = Form({ showMessage: true });
+ReactDOM.render(reactElement, domContainer);
+</code></pre><p>然而，在 React 运行时中这并不是惯用的使用组件的方式。</p>
+<p>相反，使用组件惯用的方式与我们已经了解的机制相同 — 即 React 元素。<strong>这意味着不需要你直接调用组件函数，React 会在之后为你做这件事情：</strong></p>
+<pre class="language-jsx"><code class="language-jsx">// { type: Form, props: { showMessage: true } }
+let reactElement = &lt;Form showMessage={true} />;
+ReactDOM.render(reactElement, domContainer);
+</code></pre><p>然后在 React 内部，你的组件会这样被调用：</p>
+<pre class="language-jsx"><code class="language-jsx">// React 内部的某个地方
+let type = reactElement.type; // Form
+let props = reactElement.props; // { showMessage: true }
+let result = type(props); // 无论 Form 会返回什么
+</code></pre><p>组件函数名称按照规定需要大写。当 JSX 转换时看见 <code>&lt;Form></code> 而不是 <code>&lt;form></code> ，它让对象 <code>type</code> 本身成为标识符而不是字符串：</p>
+<pre class="language-jsx"><code class="language-jsx">console.log(&lt;form />.type); // 'form' 字符串
+console.log(&lt;Form />.type); // Form 函数
+</code></pre><p>我们并没有全局的注册机制 — 字面上当我们输入 <code>&lt;Form></code> 时代表着 <code>Form</code> 。如果 <code>Form</code> 在局部作用域中并不存在，你会发现一个 JavaScript 错误，就像平常你使用错误的变量名称一样。</p>
+<p><strong>因此，当元素类型是一个函数的时候 React 会做什么呢？它会调用你的组件，然后询问组件想要渲染什么元素。</strong></p>
+<p>这个步骤会递归式地执行下去，更详细的描述在<a href="https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html">这里</a> 。总的来说，它会像这样执行：</p>
+<ul>
+<li><strong>你：</strong> <code>ReactDOM.render(&lt;App />, domContainer)</code></li>
+<li><strong>React：</strong> <code>App</code> ，你想要渲染什么？
+<ul>
+<li><code>App</code> ：我要渲染包含 <code>&lt;Content></code> 的 <code>&lt;Layout></code> 。</li>
+</ul>
+</li>
+<li><strong>React：</strong> <code>&lt;Layout></code> ，你要渲染什么？
+<ul>
+<li><code>Layout</code> ：我要在 <code>&lt;div></code> 中渲染我的子元素。我的子元素是 <code>&lt;Content></code> 所以我猜它应该渲染到 <code>&lt;div></code> 中去。</li>
+</ul>
+</li>
+<li><strong>React：</strong> <code>&lt;Content></code> ，你要渲染什么？
+<ul>
+<li><code>&lt;Content></code> ：我要在 <code>&lt;article></code> 中渲染一些文本和 <code>&lt;Footer></code> 。</li>
+</ul>
+</li>
+<li><strong>React：</strong> <code>&lt;Footer></code> ，你要渲染什么？
+<ul>
+<li><code>&lt;Footer></code> ：我要渲染含有文本的 <code>&lt;footer></code> 。</li>
+</ul>
+</li>
+<li><strong>React：</strong> 好的，让我们开始吧：</li>
+</ul>
+<pre class="language-jsx"><code class="language-jsx">// 最终的 DOM 结构
+&lt;div>
+  &lt;article>
+    Some text
+    &lt;footer>some more text&lt;/footer>
+  &lt;/article>
+&lt;/div>
+</code></pre><p>这就是为什么我们说协调是递归式的。当 React 遍历整个元素树时，可能会遇到元素的 <code>type</code> 是一个组件。React 会调用它然后继续沿着返回的 React 元素下行。最终我们会调用完所有的组件，然后 React 就会知道该如何改变宿主树。</p>
+<p>在之前已经讨论过的相同的协调准则，在这一样适用。如果在同一位置的 <code>type</code> 改变了（由索引和可选的 <code>key</code> 决定），React 会删除其中的宿主实例并将其重建。</p>
+<h2>控制反转</h2>
+<p>你也许会好奇：为什么我们不直接调用组件？为什么要编写 <code>&lt;Form /></code> 而不是 <code>Form()</code> ？</p>
+<p><strong>React 能够做的更好如果它“知晓”你的组件而不是在你递归调用它们之后生成的 React 元素树。</strong></p>
+<pre class="language-jsx"><code class="language-jsx">// 🔴 React 并不知道 Layout 和 Article 的存在。
+// 因为你在调用它们。
+ReactDOM.render(
+  Layout({ children: Article() }),
+  domContainer
+)
+
+// ✅ React知道 Layout 和 Article 的存在。
+// React 来调用它们。
+ReactDOM.render(
+  &lt;Layout>&lt;Article />&lt;/Layout>,
+  domContainer
+)
+</code></pre><p>这是一个关于<a href="https://en.wikipedia.org/wiki/Inversion_of_control">控制反转</a>的经典案例。通过让 React 调用我们的组件，我们会获得一些有趣的属性：</p>
+<ul>
+<li><strong>组件不仅仅只是函数。</strong> React 能够用在树中与组件本身紧密相连的局部状态等特性来增强组件功能。优秀的运行时提供了与当前问题相匹配的基本抽象。就像我们已经提到过的，React 专门针对于那些渲染 UI 树并且能够响应交互的应用。如果你直接调用了组件，你就只能自己来构建这些特性了。</li>
+<li><strong>组件类型参与协调。</strong> 通过 React 来调用你的组件，能让它了解更多关于元素树的结构。例如，当你从渲染 <code>&lt;Feed></code> 页面转到 <code>Profile</code> 页面，React 不会尝试重用其中的宿主实例 — 就像你用 <code>&lt;p></code> 替换掉 <code>&lt;button></code> 一样。所有的状态都会丢失 — 对于渲染完全不同的视图时，通常来说这是一件好事。你不会想要在 <code>&lt;PasswordForm></code> 和  <code>&lt;MessengerChat></code> 之间保留输入框的状态尽管 <code>&lt;input></code> 的位置意外地“排列”在它们之间。</li>
+<li><strong>React 能够推迟协调。</strong> 如果让 React 控制调用你的组件，它能做很多有趣的事情。例如，它可以让浏览器在组件调用之间做一些工作，这样重渲染大体量的组件树时就<a href="https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html">不会阻塞主线程</a>。想要手动编排这个过程而不依赖 React 的话将会十分困难。</li>
+<li><strong>更好的可调试性。</strong> 如果组件是库中所重视的一等公民，我们就可以构建<a href="https://github.com/facebook/react-devtools">丰富的开发者工具</a>，用于开发中的自省。</li>
+</ul>
+<p>让 React 调用你的组件函数还有最后一个好处就是惰性求值。让我们看看它是什么意思。</p>
+<h2>惰性求值</h2>
+<p>当我们在 JavaScript 中调用函数时，参数往往在函数调用之前被执行。</p>
+<pre class="language-jsx"><code class="language-jsx">// (2) 它会作为第二个计算
+eat(
+  // (1) 它会首先计算
+  prepareMeal()
+);
+</code></pre><p>这通常是 JavaScript 开发者所期望的因为 JavaScript 函数可能有隐含的副作用。如果我们调用了一个函数，但直到它的结果不知怎地被“使用”后该函数仍没有执行，这会让我们感到十分诧异。</p>
+<p>但是，React 组件是<a href="#%E7%BA%AF%E5%87%80">相对</a>纯净的。如果我们知道它的结果不会在屏幕上出现，则完全没有必要执行它。</p>
+<p>考虑下面这个含有 <code>&lt;Comments></code> 的 <code>&lt;Page></code> 组件：</p>
+<pre data-line="11," 11="" class="language-jsx"><code 11="" class="language-jsx">function Story({ currentUser }) {
+  // return {
+  //   type: Page,
+  //   props: {
+  //     user: currentUser,
+  //     children: { type: Comments, props: {} }
+  //   }
+  // }
+  return (
+    &lt;Page user={currentUser}>
+      &lt;Comments />
+    &lt;/Page>
+  );
+}
+</code></pre><p><code>&lt;Page></code> 组件能够在 <code>&lt;Layout></code> 中渲染传递给它的子项：</p>
+<pre data-line="4," 4="" class="language-jsx"><code 4="" class="language-jsx">function Page({ currentUser, children }) {
+  return (
+    &lt;Layout>
+      {children}
+    &lt;/Layout>
+  );
+}
+</code></pre><p><em>(在 JSX 中 <code>&lt;A>&lt;B />&lt;/A></code> 和 <code>&lt;A children={&lt;B />} /></code>相同。)</em></p>
+<p>但是要是存在提前返回的情况呢？</p>
+<pre data-line="2-4," 2-4="" class="language-jsx"><code 2-4="" class="language-jsx">function Page({ currentUser, children }) {
+  if (!currentUser.isLoggedIn) {
+    return &lt;h1>Please login&lt;/h1>;
+  }
+  return (
+    &lt;Layout>
+      {children}
+    &lt;/Layout>
+  );
+}
+</code></pre><p>如果我们像函数一样调用 <code>Comments()</code> ，不管 <code>Page</code> 是否想渲染它们都会被立即执行：</p>
+<pre data-line="4,8," 4,8="" class="language-jsx"><code 4,8="" class="language-jsx">// {
+//   type: Page,
+//   props: {
+//     children: Comments() // 总是调用！
+//   }
+// }
+&lt;Page>
+  {Comments()}
+&lt;/Page>
+</code></pre><p>但是如果我们传递的是一个 React 元素，我们不需要自己执行 <code>Comments</code> ：</p>
+<pre data-line="4,8," 4,8="" class="language-jsx"><code 4,8="" class="language-jsx">// {
+//   type: Page,
+//   props: {
+//     children: { type: Comments }
+//   }
+// }
+&lt;Page>
+  &lt;Comments />
+&lt;/Page>
+</code></pre><p>让 React 来决定何时以及是否调用组件。如果我们的的 <code>Page</code> 组件忽略自身的 <code>children</code> prop 且相反地渲染了 <code>&lt;h1>Please login&lt;/h1></code> ，React 不会尝试去调用 <code>Comments</code> 函数。重点是什么？</p>
+<p>这很好，因为它既可以让我们避免不必要的渲染也能使我们的代码变得不那么脆弱。（当用户退出登录时，我们并不在乎 <code>Comments</code> 是否被丢弃 — 因为它从没有被调用过。）</p>
+<h2>状态</h2>
+<p>我们先前提到过关于<a href="#%E5%8D%8F%E8%B0%83">协调</a>和在树中元素概念上的“位置”是如何让 React 知晓是该重用宿主实例还是该重建它。宿主实例能够拥有所有相关的局部状态：focus、selection、input 等等。我们想要在渲染更新概念上相同的 UI 时保留这些状态。我们也想可预测性地摧毁它们，当我们在概念上渲染的是完全不同的东西时（例如从 <code>&lt;SignupForm></code> 转换到 <code>&lt;MessengerChat></code>）。</p>
+<p><strong>局部状态是如此有用，以至于 React 让你的组件也能拥有它。</strong> 组件仍然是函数但是 React 用对构建 UI 有好处的许多特性增强了它。在树中每个组件所绑定的局部状态就是这些特性之一。</p>
+<p>我们把这些特性叫做 Hooks 。例如，<code>useState</code> 就是一个 Hook 。</p>
+<pre data-line="2,6,7," 2,6,7="" class="language-jsx"><code 2,6,7="" class="language-jsx">function Example() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div>
+      &lt;p>You clicked {count} times&lt;/p>
+      &lt;button onClick={() => setCount(count + 1)}>
+        Click me
+      &lt;/button>
+    &lt;/div>
+  );
+}
+</code></pre><p>它返回一对值：当前的状态和更新该状态的函数。</p>
+<p>数组的<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring">解构语法</a>让我们可以给状态变量自定义名称。例如，我在这里称它们为 <code>count</code> 和 <code>setCount</code> ，但是它们也可以被称作 <code>banana</code> 和 <code>setBanana</code> 。在这些文字之下，我们会用 <code>setState</code> 来替代第二个值无论它在具体的例子中被称作什么。</p>
+<p><em>(你能在 <a href="https://reactjs.org/docs/hooks-intro.html">React 文档</a> 中学习到更多关于 <code>useState</code> 和 其他 Hooks 的知识。)</em></p>
+<h2>一致性</h2>
+<p>即使我们想将协调过程本身分割成<a href="https://www.youtube.com/watch?v=mDdgfyRB5kg">非阻塞</a>的工作块，我们仍然需要在同步的循环中对真实的宿主实例进行操作。这样我们才能保证用户不会看见半更新状态的 UI ，浏览器也不会对用户不应看到的中间状态进行不必要的布局和样式的重新计算。</p>
+<p>这也是为什么 React 将所有的工作分成了”渲染阶段“和”提交阶段“的原因。<em>渲染阶段</em> 是当 React 调用你的组件然后进行协调的时段。在此阶段进行干涉是安全的且在<a href="https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html">未来</a>这个阶段将会变成异步的。<em>提交阶段</em> 就是 React 操作宿主树的时候。而这个阶段永远是同步的。</p>
+<h2>缓存</h2>
+<p>当父组件通过 <code>setState</code> 准备更新时，React 默认会协调整个子树。因为 React 并不知道在父组件中的更新是否会影响到其子代，所以 React 默认保持一致性。这听起来会有很大的性能消耗但事实上对于小型和中型的子树来说，这并不是问题。</p>
+<p>当树的深度和广度达到一定程度时，你可以让 React 去<a href="https://en.wikipedia.org/wiki/Memoization">缓存</a>子树并且重用先前的渲染结果当 prop 在浅比较之后是相同时：</p>
+<pre data-line="5," 5="" class="language-jsx"><code 5="" class="language-jsx">function Row({ item }) {
+  // ...
+}
+
+export default React.memo(Row);
+</code></pre><p>现在，在父组件 <code>&lt;Table></code> 中调用 <code>setState</code> 时如果 <code>&lt;Row></code> 中的 <code>item</code> 与先前渲染的结果是相同的，React 就会直接跳过协调的过程。</p>
+<p>你可以通过 <a href="https://reactjs.org/docs/hooks-reference.html#usememo"><code>useMemo()</code> Hook</a> 获得单个表达式级别的细粒度缓存。该缓存于其相关的组件紧密联系在一起，并且将与局部状态一起被销毁。它只会保留最后一次计算的结果。</p>
+<p>默认情况下，React 不会故意缓存组件。许多组件在更新的过程中总是会接收到不同的 props ，所以对它们进行缓存只会造成净亏损。</p>
+<h2>原始模型</h2>
+<p>令人讽刺地是，React 并没有使用“反应式”的系统来支持细粒度的更新。换句话说，任何在顶层的更新只会触发协调而不是局部更新那些受影响的组件。</p>
+<p>这样的设计是有意而为之的。对于 web 应用来说<a href="https://calibreapp.com/blog/time-to-interactive/">交互时间</a>是一个关键指标，而通过遍历整个模型去设置细粒度的监听器只会浪费宝贵的时间。此外，在很多应用中交互往往会导致或小（按钮悬停）或大（页面转换）的更新，因此细粒度的订阅只会浪费内存资源。</p>
+<p>React 的设计原则之一就是它可以处理原始数据。如果你拥有从网络请求中获得的一组 JavaScript 对象，你可以将其直接交给组件而无需进行预处理。没有关于可以访问哪些属性的问题，或者当结构有所变化时造成的意外的性能缺损。React 渲染是 O(<em>视图大小</em>) 而不是 O(<em>模型大小</em>) ，并且你可以通过 <a href="https://react-window.now.sh/#/examples/list/fixed-size">windowing</a> 显著地减少视图大小。</p>
+<p>有那么一些应用细粒度订阅对它们来说是有用的 — 例如股票代码。这是一个极少见的例子，因为“所有的东西都需要在同一时间内持续更新”。虽然命令式的方法能够优化此类代码，但 React 并不适用于这种情况。同样的，如果你想要解决该问题，你就得在 React 之上自己实现细粒度的订阅。</p>
+<p><strong>注意，即使细粒度订阅和“反应式”系统也无法解决一些常见的性能问题。</strong> 例如，渲染一棵很深的树（在每次页面转换的时候发生）而不阻塞浏览器。改变跟踪并不会让它变得更快 — 这样只会让其变得更慢因为我们执行了额外的订阅工作。另一个问题是我们需要等待返回的数据在渲染视图之前。在 React 中，我们用<a href="https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html">并发渲染</a>来解决这些问题。</p>
+<h2>批量更新</h2>
+<p>一些组件也许想要更新状态来响应同一事件。下面这个例子是假设的，但是却说明了一个常见的模式：</p>
+<pre data-line="4,14," 4,14="" class="language-jsx"><code 4,14="" class="language-jsx">function Parent() {
+  let [count, setCount] = useState(0);
+  return (
+    &lt;div onClick={() => setCount(count + 1)}>
+      Parent clicked {count} times
+      &lt;Child />
+    &lt;/div>
+  );
+}
+
+function Child() {
+  let [count, setCount] = useState(0);
+  return (
+    &lt;button onClick={() => setCount(count + 1)}>
+      Child clicked {count} times
+    &lt;/button>
+  );
+}
+</code></pre><p>当事件被触发时，子组件的 <code>onClick</code> 首先被触发（同时触发了它的 <code>setState</code> ）。然后父组件在它自己的 <code>onClick</code> 中调用 <code>setState</code> 。</p>
+<p>如果 React 立即重渲染组件以响应 <code>setState</code> 调用，最终我们会重渲染子组件两次：</p>
+<pre data-line="4,8," 4,8="" class="language-jsx"><code 4,8="" class="language-jsx">*** 进入 React 浏览器 click 事件处理过程 ***
+Child (onClick)
+  - setState
+  - re-render Child // 😞 不必要的重渲染
+Parent (onClick)
+  - setState
+  - re-render Parent
+  - re-render Child
+*** 结束 React 浏览器 click 事件处理过程 ***
+</code></pre><p>第一次 <code>Child</code> 组件渲染是浪费的。并且我们也不会让 React 跳过 <code>Child</code> 的第二次渲染因为 <code>Parent</code> 可能会传递不同的数据由于其自身的状态更新。</p>
+<p><strong>这就是为什么 React 会在组件内所有事件触发完成后再进行批量更新的原因：</strong></p>
+<pre class="language-jsx"><code class="language-jsx">*** 进入 React 浏览器 click 事件处理过程 ***
+Child (onClick)
+  - setState
+Parent (onClick)
+  - setState
+*** Processing state updates                     ***
+  - re-render Parent
+  - re-render Child
+*** 结束 React 浏览器 click 事件处理过程  ***
+</code></pre><p>组件内调用 <code>setState</code> 并不会立即执行重渲染。相反，React 会先触发所有的事件处理器，然后再触发一次重渲染以进行所谓的批量更新。</p>
+<p>批量更新虽然有用但可能会让你感到惊讶如果你的代码这样写：</p>
+<pre class="language-jsx"><code class="language-jsx">  const [count, setCounter] = useState(0);
+
+  function increment() {
+    setCounter(count + 1);
+  }
+
+  function handleClick() {
+    increment();
+    increment();
+    increment();
+  }
+</code></pre><p>如果我们将 <code>count</code> 初始值设为 <code>0</code> ，上面的代码只会代表三次  <code>setCount(1)</code> 调用。为了解决这个问题，我们给 <code>setState</code> 提供了一个 “updater” 函数作为参数：</p>
+<pre class="language-jsx"><code class="language-jsx">  const [count, setCounter] = useState(0);
+
+  function increment() {
+    setCounter(c => c + 1);
+  }
+
+  function handleClick() {
+    increment();
+    increment();
+    increment();
+  }
+</code></pre><p>React 会将 updater 函数放入队列中，并在之后按顺序执行它们，最终 <code>count</code> 会被设置成 <code>3</code> 并作为一次重渲染的结果。</p>
+<p>当状态逻辑变得更加复杂而不仅仅只是少数的 <code>setState</code> 调用时，我建议你使用 <a href="https://reactjs.org/docs/hooks-reference.html#usereducer"><code>useReducer</code> Hook</a> 来描述你的局部状态。它就像 “updater” 的升级模式在这里你可以给每一次更新命名：</p>
+<pre class="language-jsx"><code class="language-jsx">  const [counter, dispatch] = useReducer((state, action) => {
+    if (action === 'increment') {
+      return state + 1;
+    } else {
+      return state;
+    }
+  }, 0);
+
+  function handleClick() {
+    dispatch('increment');
+    dispatch('increment');
+    dispatch('increment');
+  }
+</code></pre><p><code>action</code> 字段可以是任意值，尽管对象是常用的选择。</p>
+<h2>调用树</h2>
+<p>编程语言的运行时往往有<a href="https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4">调用栈</a> 。当函数 <code>a()</code> 调用 <code>b()</code> ，<code>b()</code> 又调用 <code>c()</code> 时，在 JavaScript 引擎中会有像 <code>[a, b, c]</code> 这样的数据结构来“跟踪”当前的位置以及接下来要执行的代码。一旦 <code>c</code> 函数执行完毕，它的调用栈帧就消失了！因为它不再被需要了。我们返回到函数 <code>b</code> 中。当我们结束函数 <code>a</code> 的执行时，调用栈就被清空。</p>
+<p>当然，React 以 JavaScript 运行当然也遵循 JavaScript 的规则。但是我们可以想象在 React 内部有自己的调用栈用来记忆我们当前正在渲染的组件，例如 <code>[App, Page, Layout, Article /* 此刻的位置 */]</code> 。</p>
+<p>React 与通常意义上的编程语言进行时不同因为它针对于渲染 UI 树，这些树需要保持“活性”，这样才能使我们与其进行交互。在第一次 <code>ReactDOM.render()</code> 出现之前，DOM 操作并不会执行。</p>
+<p>这也许是对隐喻的延伸，但我喜欢把 React 组件当作 “调用树” 而不是 “调用栈” 。当我们调用完 <code>Article</code> 组件，它的 React “调用树” 帧并没有被摧毁。我们需要将局部状态保存以便映射到宿主实例的<a href="https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7">某个地方</a>。</p>
+<p>这些“调用树”帧会随它们的局部状态和宿主实例一起被摧毁，但是只会在<a href="#%E5%8D%8F%E8%B0%83">协调</a>规则认为这是必要的时候执行。如果你曾经读过 React 源码，你就会知道这些帧其实就是 <a href="https://en.wikipedia.org/wiki/Fiber_(computer_science)">Fibers</a> 。</p>
+<p>Fibers 是局部状态真正存在的地方。当状态被更新后，React 将其下面的 Fibers 标记为需要进行协调，之后便会调用这些组件。</p>
+<h2>上下文</h2>
+<p>在 React 中，我们将数据作为 props 传递给其他组件。有些时候，大多数组件需要相同的东西 — 例如，当前选中的可视主题。将它一层层地传递会变得十分麻烦。</p>
+<p>在 React 中，我们通过 <a href="https://reactjs.org/docs/context.html">Context</a> 解决这个问题。它就像组件的<a href="http://wiki.c2.com/?DynamicScoping">动态范围</a> ，能让你从顶层传递数据，并让每个子组件在底部能够读取该值，当值变化时还能够进行重新渲染：</p>
+<pre class="language-jsx"><code class="language-jsx">const ThemeContext = React.createContext(
+  'light' // 默认值作为后备
+);
+
+function DarkApp() {
+  return (
+    &lt;ThemeContext.Provider value="dark">
+      &lt;MyComponents />
+    &lt;/ThemeContext.Provider>
+  );
+}
+
+function SomeDeeplyNestedChild() {
+  // 取决于其子组件在哪里被渲染
+  const theme = useContext(ThemeContext);
+  // ...
+}
+</code></pre><p>当 <code>SomeDeeplyNestedChild</code> 渲染时， <code>useContext(ThemeContext)</code> 会寻找树中最近的 <code>&lt;ThemeContext.Provider></code> ，并且使用它的 <code>value</code> 。</p>
+<p>(事实上，React 维护了一个上下文栈当其渲染时。)</p>
+<p>如果没有 <code>ThemeContext.Provider</code> 存在，<code>useContext(ThemeContext)</code> 调用的结果就会被调用 <code>createContext()</code> 时传递的默认值所取代。在上面的例子中，这个值为 <code>'light'</code> 。</p>
+<h2>副作用</h2>
+<p>我们在之前提到过 React 组件在渲染过程中不应该有可观察到的副作用。但是有些时候副作用确实必要的。我们也许需要进行管理 focus 状态、用 canvas 画图、订阅数据源等操作。</p>
+<p>在 React 中，这些都可以通过声明 effect 来完成：</p>
+<pre data-line="4-6," 4-6="" class="language-jsx"><code 4-6="" class="language-jsx">function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    &lt;div>
+      &lt;p>You clicked {count} times&lt;/p>
+      &lt;button onClick={() => setCount(count + 1)}>
+        Click me
+      &lt;/button>
+    &lt;/div>
+  );
+}
+</code></pre><p>如果可能，React 会推迟执行 effect 直到浏览器重新绘制屏幕。这是有好处的因为像订阅数据源这样的代码并不会影响<a href="https://calibreapp.com/blog/time-to-interactive/">交互时间</a>和<a href="https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint">首次绘制时间</a> 。</p>
+<p>（有一个<a href="https://reactjs.org/docs/hooks-reference.html#uselayouteffect">极少使用</a>的 Hook 能够让你选择退出这种行为并进行一些同步的工作。请尽量避免使用它。）</p>
+<p>effect 不只执行一次。当组件第一次展示给用户以及之后的每次更新时它都会被执行。在 effect 中能触及当前的 props 和 state，例如上文例子中的 <code>count</code> 。</p>
+<p>effect 可能需要被清理，例如订阅数据源的例子。在订阅之后将其清理，effect 能够返回一个函数：</p>
+<pre class="language-jsx"><code class="language-jsx">  useEffect(() => {
+    DataSource.addSubscription(handleChange);
+    return () => DataSource.removeSubscription(handleChange);
+  });
+</code></pre><p>React 会在下次调用该 effect 之前执行这个返回的函数，当然是在组件被摧毁之前。</p>
+<p>有些时候，在每次渲染中都重新调用 effect 是不符合实际需要的。 你可以告诉 React 如果相应的变量不会改变则跳过此次调用：</p>
+<pre data-line="3," 3="" class="language-jsx"><code 3="" class="language-jsx">  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  }, [count]);
+</code></pre><p>但是，这往往会成为过早地优化并会造成一些问题如果你不熟悉 JavaScript 中的闭包是如何工作的话。</p>
+<p>例如，下面的这段代码是有 bug 的：</p>
+<pre class="language-jsx"><code class="language-jsx">  useEffect(() => {
+    DataSource.addSubscription(handleChange);
+    return () => DataSource.removeSubscription(handleChange);
+  }, []);
+</code></pre><p>它含有 bug 因为 <code>[]</code> 代表着“不再重新执行这个 effect 。”但是这个 effect 中的 <code>handleChange</code> 是被定义在外面的。<code>handleChange</code> 也许会引用任何的 props 或 state ：</p>
+<pre class="language-jsx"><code class="language-jsx">  function handleChange() {
+    console.log(count);
+  }
+</code></pre><p>如果我们不再让这个 effect 重新调用，<code>handleChange</code> 始终会是第一次渲染时的版本，而其中的 <code>count</code> 也永远只会是 <code>0</code> 。</p>
+<p>为了解决这个问题，请保证你声明了特定的依赖数组，它包含<strong>所有</strong>可以改变的东西，即使是函数也不例外：</p>
+<pre data-line="4," 4="" class="language-jsx"><code 4="" class="language-jsx">  useEffect(() => {
+    DataSource.addSubscription(handleChange);
+    return () => DataSource.removeSubscription(handleChange);
+  }, [handleChange]);
+</code></pre><p>取决于你的代码，在每次渲染后 <code>handleChange</code> 都会不同因此你可能仍然会看到不必要的重订阅。 <a href="https://reactjs.org/docs/hooks-reference.html#usecallback"><code>useCallback</code></a> 能够帮你解决这个问题。或者，你可以直接让它重订阅。例如浏览器中的 <code>addEventListener</code> API 非常快，但为了在组件中避免使用它可能会带来更多的问题而不是其真正的价值。</p>
+<p><em>(你能在 <a href="https://reactjs.org/docs/hooks-effect.html">React 文档</a> 中学到更多关于 <code>useEffect</code> 和其他 Hooks 的知识。)</em></p>
+<h2>自定义钩子</h2>
+<p>由于 <code>useState</code> 和 <code>useEffect</code> 是函数调用，因此我们可以将其组合成自己的 Hooks ：</p>
+<pre data-line="2,8," 2,8="" class="language-jsx"><code 2,8="" class="language-jsx">function MyResponsiveComponent() {
+  const width = useWindowWidth(); // 我们自己的 Hook
+  return (
+    &lt;p>Window width is {width}&lt;/p>
+  );
+}
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+  return width;
+}
+</code></pre><p>自定义 Hooks 让不同的组件共享可重用的状态逻辑。注意状态本身是不共享的。每次调用 Hook 都只声明了其自身的独立状态。</p>
+<p><em>(你能在 <a href="https://reactjs.org/docs/hooks-custom.html">React 文档</a> 中学习更多关于构建自己的 Hooks 的内容。)</em></p>
+<h2>静态使用顺序</h2>
+<p>你可以把 <code>useState</code> 想象成一个可以定义“React 状态变量”的语法。它并不是真正的语法，当然，我们仍在用 JavaScript 编写应用。但是我们将 React 作为一个运行时环境来看待，因为 React 用 JavaScript 来描绘整个 UI 树，它的特性往往更接近于语言层面。</p>
+<p>假设 <code>use</code> 是语法，将其使用在组件函数顶层也就说得通了：</p>
+<pre data-line="3," 3="" class="language-jsx"><code 3="" class="language-jsx">// 😉 注意：并不是真的语法
+component Example(props) {
+  const [count, setCount] = use State(0);
+
+  return (
+    &lt;div>
+      &lt;p>You clicked {count} times&lt;/p>
+      &lt;button onClick={() => setCount(count + 1)}>
+        Click me
+      &lt;/button>
+    &lt;/div>
+  );
+}
+</code></pre><p>当它被放在条件语句中或者组件外时又代表什么呢？</p>
+<pre class="language-jsx"><code class="language-jsx">// 😉 注意：并不是真的语法
+
+// 它是谁的...局部状态？
+const [count, setCount] = use State(0);
+
+component Example() {
+  if (condition) {
+    // 要是 condition 是 false 时会发生什么呢？
+    const [count, setCount] = use State(0);
+  }
+
+  function handleClick() {
+    // 要是离开了组件函数会发生什么？
+    // 这和一般的变量又有什么区别呢？
+    const [count, setCount] = use State(0);
+  }
+</code></pre><p>React 状态和在树中与其相关的组件紧密联系在一起。如果 <code>use</code> 是真正的语法当它在组件函数的顶层调用时也能说的通：</p>
+<pre class="language-jsx"><code class="language-jsx">// 😉 注意：并不是真的语法
+component Example(props) {
+  // 只在这里有效
+  const [count, setCount] = use State(0);
+
+  if (condition) {
+    // 这会是一个语法错误
+    const [count, setCount] = use State(0);
+  }
+</code></pre><p>这和 <code>import</code> 声明只在模块顶层有用是一样的道理。</p>
+<p><strong>当然，<code>use</code> 并不是真正的语法。</strong> （它不会带来很多好处，并且会带来很多摩擦。）</p>
+<p>然而，React 的确期望所有的 Hooks 调用只发生在组件的顶部并且不在条件语句中。这些 Hooks 的<a href="https://reactjs.org/docs/hooks-rules.html">规则</a>能够被 <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">linter plugin</a> 所规范。有很多关于这种设计选择的激烈争论，但在实践中我并没有看到它让人困惑。我还写了关于为什么通常提出的替代方案<a href="https://overreacted.io/why-do-hooks-rely-on-call-order/">不起作用</a>的文章。</p>
+<p>Hooks 的内部实现其实是<a href="https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph">链表</a> 。当你调用 <code>useState</code> 的时候，我们将指针移到下一项。当我们退出组件的<a href="#%E8%B0%83%E7%94%A8%E6%A0%91">“调用树”帧</a>时，会缓存该结果的列表直到下次渲染开始。</p>
+<p><a href="https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e">这篇文章</a>简要介绍了 Hooks 内部是如何工作的。数组也许是比链表更好解释其原理的模型：</p>
+<pre class="language-jsx"><code class="language-jsx">// 伪代码
+let hooks, i;
+function useState() {
+  i++;
+  if (hooks[i]) {
+    // 再次渲染时
+    return hooks[i];
+  }
+  // 第一次渲染
+  hooks.push(...);
+}
+
+// 准备渲染
+i = -1;
+hooks = fiber.hooks || [];
+// 调用组件
+YourComponent();
+// 缓存 Hooks 的状态
+fiber.hooks = hooks;
+</code></pre><p><em>(如果你对它感兴趣，真正的代码在<a href="https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js">这里</a> 。)</em></p>
+<p>这大致就是每个 <code>useState()</code> 如何获得正确状态的方式。就像我们<a href="#%E5%8D%8F%E8%B0%83">之前</a>所知道的，“匹配”对 React 来说并不是什么新的知识 — 这与协调依赖于在渲染前后元素是否匹配是同样的道理。</p>
+<h2>未提及的知识</h2>
+<p>我们已经触及到 React 运行时环境中几乎所有重要的方面。如果你读完了本篇文章，你可能已经比 90% 的开发者更了解 React ！这一点也没有错！</p>
+<p>当然有一些地方我并没有提及到 — 主要是因为我们对它们也不太清楚。React 目前对多道渲染并没有太好的支持，即当父组件的渲染需要子组件提供信息时。<a href="https://reactjs.org/docs/error-boundaries.html">错误处理 API</a> 目前也还没有 Hooks 的版本。这两个问题可能会被一起解决。并发模式在目前看来并不稳定，也有很多关于 Suspense 该如何适应当前版本的有趣问题。也许我会在它们要完成的时候再来讨论，并且 Suspense 已经准备好比 <a href="https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense">lazy loading</a> 能够做的更多。</p>
+<p><strong>我认为 React API 的成功之处在于，即使在没有考虑过上面这些大多数主题的情况下，你也能轻松使用它并且可以走的很远。</strong> 在大多数情况下，像协调这样好的默认特性启发式地为我们做了正确的事情。在你忘记添加 <code>key</code> 这样的属性时，React 能够好心提醒你。</p>
+<p>如果你是痴迷于 UI 库的书呆子，我希望这篇文章对你来说会很有趣并且是深入阐明了 React 是如何工作的。又或许你会觉得 React 太过于复杂为此你不会再去深入理解它。不管怎样，我都很乐意在 Twitter 上收到你的消息！谢谢你的阅读。</p>
+</article> <hr> <div class="post__wrapper"><a href="/lkangd.com/post/react-as-a-ui-runtime" class="cs-outside-link fr">React as a UI Runtime →</a> <a href="/lkangd.com/post/preparing-for-tech-talk-part-2-what-why-and-how" class="cs-outside-link fl">← Preparing for a Tech Talk, Part 2: What, Why, and How</a></div> <section class="cs-statement" data-v-6cb3297c><hr data-v-6cb3297c> <p class="cs-statement__text" data-v-6cb3297c>
+    讨论请发邮件到
+    <a href="mailto:lkangd@gmail.com" target="_blank" class="cs-outside-link" data-v-6cb3297c>lkangd@gmail.com</a></p> <p class="cs-statement__text" data-v-6cb3297c>未经授权，禁止转载</p> <p class="cs-statement__text" data-v-6cb3297c>通过支付宝 lkangd@foxmail.com 或赞赏码赞助此文</p> <img alt="reward-code" src="/lkangd.com/_nuxt/img/3b0f29f.jpg" class="cs-statement__reward-code" data-v-6cb3297c></section></section> <footer class="cs-footer" data-v-04c3be52><div class="cs-color-slogan cs-footer__slogan" data-v-1740ad80 data-v-04c3be52><span data-v-1740ad80>Work With </span> <span class="cs-color-slogan__placeholder" data-v-1740ad80></span> <span class="cs-color-slogan__wrapper" data-v-1740ad80>
+     
+    <span data-v-1740ad80></span></span></div> <svg xmlns="http://www.w3.org/2000/svg" class="cs-footer__logo" data-v-04c3be52><use href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo" xlink:href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo"></use></svg> <p class="cs-footer__text" data-v-04c3be52>
+    2017-2019 
+    <a href="/" target="_blank" class="cs-outside-link" data-v-04c3be52>Curtis' Spot</a></p></footer></div></div></div><script defer src="/lkangd.com/post/react-as-a-ui-runtime-zh/payload1568183296278.js"></script><script src="/lkangd.com/_nuxt/65dc7a5cd1c1cd57e7eb.js" defer></script><script src="/lkangd.com/_nuxt/7e77b8e6cd7011676488.js" defer></script><script src="/lkangd.com/_nuxt/48f65a593c854d50b992.js" defer></script><script src="/lkangd.com/_nuxt/2bc7cee40a450e203637.js" defer></script><script src="/lkangd.com/_nuxt/ef6c14c0800794aa78c2.js" defer></script><script data-n-head="ssr" type="text/javascript" data-body="true">!function(){function t(e){r=e,document.body.className=e}var r,a={light:"light",dark:"dark"};try{r=localStorage.getItem("theme")}catch(e){}window.__setPreferredTheme=function(e){t(e);try{localStorage.setItem("theme",e)}catch(e){}};var e=window.matchMedia("(prefers-color-scheme: dark)");e.addListener(function(e){window.__setPreferredTheme(a[r]||(e.matches?"dark":"light"))}),t(a[r]||(e.matches?"dark":"light"))}()</script>
+  </body>
+</html>

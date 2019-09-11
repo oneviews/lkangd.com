@@ -1,0 +1,432 @@
+<!doctype html>
+<html data-n-head-ssr>
+  <head>
+    <title>Why Do React Hooks Rely on Call Order? - Curtis' Spot</title><meta data-n-head="ssr" charset="utf-8"><meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1"><meta data-n-head="ssr" data-hid="description" name="description" content="Front-end Engineer. Bloggin about life, tech & everything I love."><link data-n-head="ssr" rel="icon" type="image/x-icon" href="/favicon.png"><link data-n-head="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC&display=swap"><link data-n-head="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:900&display=swap"><base href="/lkangd.com/"><link rel="preload" href="/lkangd.com/_nuxt/65dc7a5cd1c1cd57e7eb.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/48f65a593c854d50b992.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/2bc7cee40a450e203637.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/ef6c14c0800794aa78c2.js" as="script"><link rel="preload" href="/lkangd.com/_nuxt/7e77b8e6cd7011676488.js" as="script"><style data-vue-ssr-id="4c1d7b6c:0 08fa13ea:0 1ff19d8c:0 e7f76474:0 c85b1ba0:0 6f6dcbd0:0 fb70d044:0 230384db:0 861b946c:0">a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,html,i,iframe,img,input,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font-weight:400;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,menu,nav,section{display:block}body{line-height:1}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:none}table{border-collapse:collapse;border-spacing:0}a{backface-visibility:hidden;-webkit-backface-visibility:hidden;-webkit-touch-callout:none;text-decoration:none;cursor:pointer}li{list-style:none}body{-webkit-text-size-adjust:none;-webkit-tap-highlight-color:transparent}*{box-sizing:border-box}html{font-size:16px!important}body,html{height:100%;line-height:1;font-family:"Noto Serif SC",serif;-webkit-tap-highlight-color:transparent;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}body{margin:0 auto;scroll-behavior:smooth}strong{font-weight:700}a,button{color:inherit;outline:0;border:none;background-color:transparent;-webkit-tap-highlight-color:transparent;transition:text-shadow .3s;white-space:pre-wrap;word-break:break-all;cursor:pointer}a:active,a:focus,button:active,button:focus{outline:0!important}a:hover,button:hover{text-shadow:0 0 1px #000}::-moz-selection{background:rgba(255,233,87,.6)}::selection{background:rgba(255,233,87,.6)}.cs-outside-link{position:relative;cursor:pointer;transition:color .2s cubic-bezier(0,.8,.13,1);-webkit-text-decoration-color:transparent!important;text-decoration-color:transparent!important}.cs-outside-link:after{content:"";position:absolute;z-index:-1;top:60%;left:-.1em;right:-.1em;bottom:0;transition:top .2s cubic-bezier(0,.8,.13,1);background-color:var(--yellow)}.cs-outside-link:hover{color:#121314}.cs-outside-link:hover:after{top:0}.cs-nav-link{position:relative}.cs-nav-link:before{content:"";position:absolute;height:1px;bottom:3px;left:0;right:0;background-color:var(--site-nav);transform-origin:bottom left;transform:scaleX(1);transition:transform .3s ease-in-out}.cs-nav-link:hover:before{transform:scaleX(0);transform-origin:bottom right}.cs-container{margin:0 auto;padding:0 32px;max-width:764px}.cs-container-big{margin:0 auto;padding:0 32px;max-width:1024px}.cs-split-title{height:0;font-weight:700;line-height:0;text-transform:uppercase;text-align:center;border-bottom:1px solid var(--hr);margin-top:48px;margin-bottom:20px;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.cs-split-title>span{padding-left:.5em;padding-right:.5em;font-weight:700;color:var(--text-normal);background-color:var(--bg)}.cs-title{font-size:24px;line-height:34px;font-weight:700}.cs-title,.cs-title-big{margin:20px auto;font-family:Montserrat,serif;color:var(--text-title)}.cs-title-big{font-size:32px;line-height:42px;font-weight:900}.cs-text{margin-bottom:10px;line-height:1.3;color:var(--text-normal);word-break:break-all;white-space:wrap}.cs-text a{text-decoration:underline}.cs-text small{font-size:.8em}.cs-date{margin:24px 0 32px;line-height:1.7;color:var(--site-desc)}.cs-list{margin:16px auto;padding-left:40px;list-style-type:disc}.cs-list__item{display:list-item;list-style:inherit;line-height:1.5;word-break:break-all;white-space:wrap}.fl{float:left}.fr{float:right}body{--yellow:rgba(255,233,87,0.6);--bg:#fff;--header:var(--pink);--text-normal:#000;--text-title:#222;--text-link:#d23669;--hr:#a7adba;--footer-bg:#fafafa;--logo:#000;--site-desc:#65737e;--site-nav:#343d46;--inline-code-fg:rgba(49,51,51,0.9);--inline-code-bg:rgba(255,233,87,0.4);color:var(--text-normal);background-color:var(--bg)}body.dark{--yellow:#373c49;--bg:#282c35;--header:#fff;--text-normal:hsla(0,0%,100%,0.88);--text-title:#fff;--text-link:var(--pink);--hr:hsla(0,0%,100%,0.2);--footer-bg:#242830;--logo:#fff;--site-desc:hsla(0,0%,100%,0.88);--site-nav:hsla(0,0%,100%,0.88);--inline-code-fg:#e6e6e6;--inline-code-bg:#373c49;-webkit-font-smoothing:antialiased}code[class*=language-],pre[class*=language-]{color:#fff;background:0 0;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;font-feature-settings:normal;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;margin-bottom:0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{overflow:auto;padding:1.3125rem}pre[class*=language-]::-moz-selection{background:#27292a}pre[class*=language-]::selection{background:#27292a}pre[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection{text-shadow:none;background:hsla(0,0%,100%,.15)}pre[class*=language-] ::selection,pre[class*=language-]::selection{text-shadow:none;background:hsla(0,0%,100%,.15)}:not(pre)>code[class*=language-]{border-radius:.3em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:.15em .2em .05em;white-space:normal}.token.attr-name{color:#addb67;font-style:italic}.token.comment{color:#809393}.token.string,.token.url{color:#addb67}.token.variable{color:#d6deeb}.token.number{color:#f78c6c}.token.builtin,.token.char,.token.constant,.token.function{color:#82aaff}.token.punctuation{color:#c792ea}.token.doctype,.token.selector{color:#c792ea;font-style:italic}.token.class-name{color:#ffcb8b}.token.keyword,.token.operator,.token.tag{color:#ffa7c4}.token.boolean{color:#ff5874}.token.property{color:#80cbc4}.token.namespace{color:#b2ccd6}pre[data-line]{padding:1em 0 1em 3em;position:relative}.gatsby-highlight-code-line{background-color:#022a4b;display:block;padding-right:1em;padding-left:1.25em;border-left:.25em solid #ffa7c4}.gatsby-highlight,.gatsby-highlight-code-line{margin-right:-1.3125rem;margin-left:-1.3125rem}.gatsby-highlight{margin-bottom:1.75rem;border-radius:10px;background:#011627;-webkit-overflow-scrolling:touch;overflow:auto}@media (max-width:672px){.gatsby-highlight{border-radius:0}}.gatsby-highlight pre[class*=language-]{float:left;min-width:100%}.line-highlight{border-left:4px solid #ffa7c4}.line-highlight:after,.line-highlight:before{display:none}.cs-loading[data-v-0dfe3184]{position:fixed;top:0;left:0;z-index:100;width:100%;height:100%;background-color:var(--bg);will-change:opacity;transition:opacity .5s .4s}.cs-loading.loaded[data-v-0dfe3184]{opacity:0}.cs-loading .main[data-v-0dfe3184]{position:absolute;top:calc(50% - 63px);left:calc(50% - 63px);z-index:1;width:126px;height:126px}.cs-loading .main.out-of-window .line1-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line1[data-v-0dfe3184],.cs-loading .main.out-of-window .line3-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line3[data-v-0dfe3184],.cs-loading .main.out-of-window .line5[data-v-0dfe3184],.cs-loading .main.out-of-window .line7[data-v-0dfe3184],.cs-loading .main.out-of-window .line9[data-v-0dfe3184]{transform:rotate(45deg) translateY(100vh)}.cs-loading .main.out-of-window .line10[data-v-0dfe3184],.cs-loading .main.out-of-window .line2-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line2[data-v-0dfe3184],.cs-loading .main.out-of-window .line4-2[data-v-0dfe3184],.cs-loading .main.out-of-window .line4-3[data-v-0dfe3184],.cs-loading .main.out-of-window .line4[data-v-0dfe3184],.cs-loading .main.out-of-window .line6[data-v-0dfe3184],.cs-loading .main.out-of-window .line8-1[data-v-0dfe3184],.cs-loading .main.out-of-window .line8[data-v-0dfe3184]{transform:rotate(45deg) translateY(-100vh)}.cs-loading .main.out-of-window .text[data-v-0dfe3184]{opacity:0;transition:opacity .5s}.cs-loading .main .line[data-v-0dfe3184]{position:absolute;z-index:3;width:7px;background:var(--text-normal);will-change:transform;transform:rotate(45deg)}.cs-loading .main .line.line1[data-v-0dfe3184]{top:51px;left:5px;height:17px;transition:transform .5s}.cs-loading .main .line.line1-2[data-v-0dfe3184]{top:-3px;left:50px;height:36px;transition:transform .5s}.cs-loading .main .line.line2[data-v-0dfe3184]{top:55px;left:9px;height:27px;transition:transform .5s}.cs-loading .main .line.line2-2[data-v-0dfe3184]{top:-5px;left:56px;height:53px;transition:transform .5s}.cs-loading .main .line.line3[data-v-0dfe3184]{top:58px;left:15px;height:35px;transition:transform .5s .1s}.cs-loading .main .line.line3-2[data-v-0dfe3184]{top:-2px;left:63px;height:59px;transition:transform .5s .1s}.cs-loading .main .line.line4[data-v-0dfe3184]{top:55px;left:24px;height:48px;transition:transform .5s .1s}.cs-loading .main .line.line4-2[data-v-0dfe3184]{top:27px;left:60px;height:33px;transition:transform .5s .1s}.cs-loading .main .line.line4-3[data-v-0dfe3184]{top:9px;left:84px;height:21px;transition:transform .5s .1s}.cs-loading .main .line.line5[data-v-0dfe3184]{top:4px;left:54px;height:117px;transition:transform .5s .2s}.cs-loading .main .line.line6[data-v-0dfe3184]{top:15px;left:59px;height:111px;transition:transform .5s .2s}.cs-loading .main .line.line7[data-v-0dfe3184]{top:16px;left:69px;height:115px;transition:transform .5s .3s}.cs-loading .main .line.line8[data-v-0dfe3184]{top:56px;left:63px;height:72px;transition:transform .5s .3s}.cs-loading .main .line.line8-1[data-v-0dfe3184]{top:30px;left:116px;height:18px;transition:transform .5s .3s}.cs-loading .main .line.line9[data-v-0dfe3184]{top:67px;left:70px;height:61px;transition:transform .5s .4s}.cs-loading .main .line.line10[data-v-0dfe3184]{top:82px;left:78px;height:40px;transition:transform .5s .4s}.cs-loading .main .text[data-v-0dfe3184]{position:absolute;bottom:-18%;left:0;width:100%;font-size:18px;font-weight:700;color:var(--text-normal);text-align:center;will-change:opacity;transition:opacity .5s .5s}.cs-header[data-v-e2fcdc26]{padding-top:64px}.cs-header__logo[data-v-e2fcdc26]{position:relative;left:4px;display:block;margin:0 auto;width:128px;height:128px;color:var(--logo);transition:color .5s;cursor:pointer}.cs-header__logo[data-v-e2fcdc26]:hover{color:#ffe957}.cs-header__text[data-v-e2fcdc26]{margin:16px 0;padding:0 32px;font-weight:700;line-height:1.4;text-align:center;color:var(--text-normal)}.cs-header__text--light[data-v-e2fcdc26]{color:var(--site-desc);font-weight:500}.cs-nav[data-v-3775b65b]{padding:32px;font-size:0;text-align:center}.cs-nav__item[data-v-3775b65b]{display:inline-block;padding:0 8px;color:var(--site-nav);cursor:pointer}.cs-nav__item>a[data-v-3775b65b]{font-size:16px;font-weight:700;line-height:1.4}.post{background-color:transparent}.post hr{margin:64px 0;border:0;border-bottom:1px solid var(--hr)}.post .cs-post-article a{padding:0 4px;text-decoration:underline}.post .cs-post-article h2{margin:24px 0;font-size:20px;font-weight:700}.post .cs-post-article h3{margin:24px 0;font-size:18px;font-weight:700}.post .cs-post-article li,.post .cs-post-article p{margin:24px 0;font-size:16px;line-height:28px;color:var(--text-normal)}.post .cs-post-article code:not([class*=language-]){padding:0 4px;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;color:var(--inline-code-fg);background-color:var(--inline-code-bg);border-radius:3px}.post .cs-post-article strong em{margin:0 6px;font-weight:700}.post .cs-post-article hr{margin:30px 0;border:0;border-bottom:1px solid var(--hr)}.post .cs-post-article em{margin:0 6px}.post .cs-post-article pre{background-color:#011627;border-radius:10px}.post .cs-post-article ul li{font-size:16px;line-height:28px;list-style:disc}.post .cs-post-article ol li{list-style:decimal}.post .cs-post-article img{width:100%;height:auto}.post__wrapper{overflow:hidden}.post__wrapper>a{margin:20px 0}.cs-statement[data-v-6cb3297c]{text-align:center}.cs-statement hr[data-v-6cb3297c]{margin:64px 0;border:0;border-bottom:1px solid var(--hr)}.cs-statement__text[data-v-6cb3297c]{margin:8px 0;line-height:1.7;color:var(--text-normal)}.cs-statement__reward-code[data-v-6cb3297c]{margin-top:50px;max-width:30%;height:auto}@media (max-width:375px){.cs-statement .cs-statement__reward-code[data-v-6cb3297c]{max-width:76%!important}}.cs-footer[data-v-04c3be52]{position:relative;margin-top:40px;padding:40px 40px 20px;color:#9aa0ac;text-align:center}.cs-footer[data-v-04c3be52]:after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;z-index:-2;background-color:var(--footer-bg)}.cs-footer__logo[data-v-04c3be52]{display:block;margin:18px auto;width:28px;height:28px;color:var(--logo)}.cs-footer__text>a[data-v-04c3be52],.cs-footer__text[data-v-04c3be52]{font-weight:600}.cs-footer__text[data-v-04c3be52]{margin:18px 0}.cs-footer__slogan[data-v-04c3be52]{display:inline-block;vertical-align:middle;font-size:14px}.cs-color-slogan[data-v-1740ad80]{display:inline-block;position:relative;font-family:serif;color:var(--text-normal);background-color:transparent}.cs-color-slogan__placeholder[data-v-1740ad80]{opacity:0}.cs-color-slogan__wrapper[data-v-1740ad80]{position:absolute;top:0;white-space:nowrap}</style>
+  </head>
+  <body>
+    <div data-server-rendered="true" id="__nuxt"><!----><div id="__layout"><div><header class="cs-header" data-v-e2fcdc26><svg xmlns="http://www.w3.org/2000/svg" class="cs-header__logo" data-v-e2fcdc26><use href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo" xlink:href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo"></use></svg> <p class="cs-header__text" data-v-e2fcdc26>Curtis Liong</p> <p class="cs-header__text cs-header__text--light" data-v-e2fcdc26><a href="https://en.wikipedia.org/wiki/Front-end_web_development" target="_blank" class="cs-outside-link" data-v-e2fcdc26>Front-end</a> Engineer. Blogging about life, tech & everything I love.
+  </p></header> <nav class="cs-nav" data-v-3775b65b><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/" class="cs-nav-link nuxt-link-active" data-v-3775b65b>Home</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/tech/" class="cs-nav-link" data-v-3775b65b>Tech</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/think/" class="cs-nav-link" data-v-3775b65b>Think</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/fun/" class="cs-nav-link" data-v-3775b65b>Fun</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/about/" class="cs-nav-link" data-v-3775b65b>About</a></div><div class="cs-nav__item" data-v-3775b65b><a href="/lkangd.com/donate/" class="cs-nav-link" data-v-3775b65b>Donate</a></div> <div class="cs-nav__item" data-v-3775b65b><a href="/feed.xml" target="_blank" class="cs-nav-link" data-v-3775b65b>RSS</a></div> <div class="cs-nav__item" data-v-3775b65b><a href="/sitemap.xml" target="_blank" class="cs-nav-link" data-v-3775b65b>Sitemap</a></div></nav> <section class="post cs-container-big"><h2 class="cs-title-big">Why Do React Hooks Rely on Call Order?</h2> <p class="cs-date">13, Dec, 2018•4k words•☕️☕️☕️☕️☕️ 24 min read</p> <article class="cs-post-article"><p>At React Conf 2018, the React team presented the <a href="https://reactjs.org/docs/hooks-intro.html">Hooks proposal</a>.</p>
+<p>If you’d like to understand what Hooks are and what problems they solve, check out <a href="https://www.youtube.com/watch?v=dpw9EHDh2bM">our talks</a> introducing them and <a href="https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889">my follow-up article</a> addressing common misconceptions.</p>
+<p>Chances are you won’t like Hooks at first:</p>
+<p><img src="./hooks-hn1.png" alt="Negative HN comment"></p>
+<p>They’re like a music record that grows on you only after a few good listens:</p>
+<p><img src="./hooks-hn2.png" alt="Positive HN comment from the same person four days later"></p>
+<p>When you read the docs, don’t miss <a href="https://reactjs.org/docs/hooks-custom.html">the most important page</a> about building your own Hooks! Too many people get fixated on some part of our messaging they disagree with (e.g. that learning classes is difficult) and miss the bigger picture behind Hooks. And the bigger picture is that <strong>Hooks are like <em>functional mixins</em> that let you create and compose your own abstractions.</strong></p>
+<p>Hooks <a href="https://reactjs.org/docs/hooks-faq.html#what-is-the-prior-art-for-hooks">are influenced by some prior art</a> but I haven’t seen anything <em>quite</em> like them until Sebastian shared his idea with the team. Unfortunately, it’s easy to overlook the connection between the specific API choices and the valuable properties unlocked by this design. With this post I hope to help more people understand the rationale for the most controversial aspect of Hooks proposal.</p>
+<p><strong>The rest of this post assumes you know the <code>useState()</code> Hook API and how to write a custom Hook. If you don’t, check out the earlier links. Also, keep in mind Hooks are experimental and you don’t have to learn them right now!</strong></p>
+<p>(Disclaimer: this is a personal post and doesn’t necessarily reflect the opinions of the React team. It’s large, the topic is complex, and I may have made mistakes somewhere.)</p>
+<hr>
+<p>The first and probably the biggest shock when you learn about Hooks is that they rely on <em>persistent call index between re-renders</em>. This has some <a href="https://reactjs.org/docs/hooks-rules.html">implications</a>.</p>
+<p>This decision is obviously controversial. This is why, <a href="https://www.reddit.com/r/reactjs/comments/9xs2r6/sebmarkbages_response_to_hooks_rfc_feedback/e9wh4um/">against our principles</a>, we only published this proposal after we felt the documentation and talks describe it well enough for people to give it a fair chance.</p>
+<p><strong>If you’re concerned about some aspects of the Hooks API design, I encourage you to read Sebastian’s <a href="https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884">full response</a> to the 1,000+ comment RFC discussion.</strong> It is thorough but also quite dense. I could probably turn every paragraph of this comment into its own blog post. (In fact, I already <a href="/how-does-setstate-know-what-to-do/">did</a> that once!)</p>
+<p>There is one specific part that I’d like to focus on today. As you may recall, each Hook can be used in a component more than once. For example, we can declare <a href="https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables">multiple state variables</a> by calling <code>useState()</code> repeatedly:</p>
+<pre data-line="2,3,4," 2,3,4="" class="language-jsx"><code 2,3,4="" class="language-jsx">function Form() {
+  const [name, setName] = useState('Mary'); // State variable 1
+  const [surname, setSurname] = useState('Poppins'); // State variable 2
+  const [width, setWidth] = useState(window.innerWidth); // State variable 3
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  });
+
+  function handleNameChange(e) {
+    setName(e.target.value);
+  }
+
+  function handleSurnameChange(e) {
+    setSurname(e.target.value);
+  }
+
+  return (
+    &lt;>
+      &lt;input value={name} onChange={handleNameChange} />
+      &lt;input value={surname} onChange={handleSurnameChange} />
+      &lt;p>
+        Hello, {name} {surname}
+      &lt;/p>
+      &lt;p>Window width: {width}&lt;/p>
+    &lt;/>
+  );
+}
+</code></pre><p>Note that we use array destructuring syntax to name <code>useState()</code> state variables but these names are not passed to React. Instead, in this example <strong>React treats <code>name</code> as “the first state variable”, <code>surname</code> as “the second state variable”, and so on</strong>. Their <em>call index</em> is what gives them a stable identity between re-renders. This mental model is well-described <a href="https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e">in this article</a>.</p>
+<p>On a surface level, relying on the call index just <em>feels wrong</em>. A gut feeling is a useful signal but it can be misleading — especially if we haven’t fully internalized the problem we’re solving. <strong>In this post, I’ll take a few commonly suggested alternative designs for Hooks and show where they break down.</strong></p>
+<hr>
+<p>This post won’t be exhaustive. Depending on how granular you’re counting, we’ve seen from a dozen to <em>hundreds</em> of different alternative proposals. We’ve also been <a href="https://github.com/reactjs/react-future">thinking</a> about alternative component APIs for the last five years.</p>
+<p>Blog posts like this are tricky because even if you cover a hundred alternatives, somebody can tweak one and say: “Ha, you didn’t think of <em>that</em>!”</p>
+<p>In practice, different alternative proposals tend to overlap in their downsides. Rather than enumerate <em>all</em> the suggested APIs (which would take me months), I’ll demonstrate the most common flaws with specific examples. Categorizing other possible APIs by these problems could be an exercise to the reader. 🧐</p>
+<p><em>That is not to say that Hooks are flawless.</em> But once you get familiar with the flaws of other solutions, you might find that the Hooks design makes some sense.</p>
+<hr>
+<h3>Flaw #1: Can’t Extract a Custom Hook</h3>
+<p>Surprisingly, many alternative proposals don’t allow <a href="https://reactjs.org/docs/hooks-custom.html">custom Hooks</a> at all. Perhaps we didn’t emphasize custom Hooks enough in the “motivation” docs. It’s difficult to do until the primitives are well-understood. So it’s a chicken-and-egg problem. But custom Hooks are largely the point of the proposal.</p>
+<p>For example, an alternative banned multiple <code>useState()</code> calls in a component. You’d keep state in one object. That works for classes, right?</p>
+<pre class="language-jsx"><code class="language-jsx">function Form() {
+  const [state, setState] = useState({
+    name: 'Mary',
+    surname: 'Poppins',
+    width: window.innerWidth,
+  });
+  // ...
+}
+</code></pre><p>To be clear, Hooks <em>do</em> allow this style. You don’t <em>have to</em> split your state into a bunch of state variables (see our <a href="https://reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables">recommendations</a> in the FAQ).</p>
+<p>But the point of supporting multiple <code>useState()</code> calls is so that you can <em>extract</em> parts of stateful logic (state + effects) out of your components into custom Hooks which can <em>also</em> independently use local state and effects:</p>
+<pre data-line="6-7," 6-7="" class="language-jsx"><code 6-7="" class="language-jsx">function Form() {
+  // Declare some state variables directly in component body
+  const [name, setName] = useState('Mary');
+  const [surname, setSurname] = useState('Poppins');
+
+  // We moved some state and effects into a custom Hook
+  const width = useWindowWidth();
+  // ...
+}
+
+function useWindowWidth() {
+  // Declare some state and effects in a custom Hook
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    // ...
+  });
+  return width;
+}
+</code></pre><p>If you only allow one <code>useState()</code> call per component, you lose the ability of custom Hooks to introduce local state. Which is the point of custom Hooks.</p>
+<h3>Flaw #2: Name Clashes</h3>
+<p>One common suggestion is to let <code>useState()</code> accept a key argument (e.g. a string) that uniquely identifies a particular state variable within a component.</p>
+<p>There are a few variations on this idea, but they roughly look like this:</p>
+<pre class="language-jsx"><code class="language-jsx">// ⚠️ This is NOT the React Hooks API
+function Form() {
+  // We pass some kind of state key to useState()
+  const [name, setName] = useState('name');
+  const [surname, setSurname] = useState('surname');
+  const [width, setWidth] = useState('width');
+  // ...
+</code></pre><p>This tries to avoid reliance on the call index (yay explicit keys!) but introduces another problem — name clashes.</p>
+<p>Granted, you probably won’t be tempted to call <code>useState('name')</code> twice in the same component except by mistake. This can happen accidentally but we could argue that about any bug. However, it’s quite likely that when you work on a <em>custom Hook</em>, you’ll want to add or remove state variables and effects.</p>
+<p>With this proposal, any time you add a new state variable inside a custom Hook, you risk breaking any components that use it (directly or transitively) because <em>they might already use the same name</em> for their own state variables.</p>
+<p>This is an example of an API that’s not <a href="/optimized-for-change/">optimized for change</a>. The current code might always look “elegant”, but it is very fragile to changes in requirements. We should <a href="https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#mixins-cause-name-clashes">learn</a> from our mistakes.</p>
+<p>The actual Hooks proposal solves this by relying on the call order: even if two Hooks use a <code>name</code> state variable, they would be isolated from each other. Every <code>useState()</code> call gets its own “memory cell”.</p>
+<p>There are still a few other ways we could work around this flaw but they also have their own issues. Let’s explore this problem space more closely.</p>
+<h3>Flaw #3: Can’t Call the Same Hook Twice</h3>
+<p>Another variation of the “keyed” <code>useState</code> proposal is to use something like Symbols. Those can’t clash, right?</p>
+<pre class="language-jsx"><code class="language-jsx">// ⚠️ This is NOT the React Hooks API
+const nameKey = Symbol();
+const surnameKey = Symbol();
+const widthKey = Symbol();
+
+function Form() {
+  // We pass some kind of state key to useState()
+  const [name, setName] = useState(nameKey);
+  const [surname, setSurname] = useState(surnameKey);
+  const [width, setWidth] = useState(widthKey);
+  // ...
+</code></pre><p>This proposal seems to work for extracting the <code>useWindowWidth()</code> Hook:</p>
+<pre data-line="4,11-17," 4,11-17="" class="language-jsx"><code 4,11-17="" class="language-jsx">// ⚠️ This is NOT the React Hooks API
+function Form() {
+  // ...
+  const width = useWindowWidth();
+  // ...
+}
+
+/*********************
+ * useWindowWidth.js *
+ ********************/
+const widthKey = Symbol();
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(widthKey);
+  // ...
+  return width;
+}
+</code></pre><p>But if we attempt to extract input handling, it would fail:</p>
+<pre data-line="4,5,19-29," 4,5,19-29="" class="language-jsx"><code 4,5,19-29="" class="language-jsx">// ⚠️ This is NOT the React Hooks API
+function Form() {
+  // ...
+  const name = useFormInput();
+  const surname = useFormInput();
+  // ...
+  return (
+    &lt;>
+      &lt;input {...name} />
+      &lt;input {...surname} />
+      {/* ... */}
+    &lt;/>
+  );
+}
+
+/*******************
+ * useFormInput.js *
+ ******************/
+const valueKey = Symbol();
+
+function useFormInput() {
+  const [value, setValue] = useState(valueKey);
+  return {
+    value,
+    onChange(e) {
+      setValue(e.target.value);
+    },
+  };
+}
+</code></pre><p>(I’ll admit this <code>useFormInput()</code> Hook isn’t particularly useful but you could imagine it handling things like validation and dirty state flag a la <a href="https://github.com/jaredpalmer/formik">Formik</a>.)</p>
+<p>Can you spot the bug?</p>
+<p>We’re calling <code>useFormInput()</code> twice but our <code>useFormInput()</code> always calls <code>useState()</code> with the same key. So effectively we’re doing something like:</p>
+<pre class="language-jsx"><code class="language-jsx">const [name, setName] = useState(valueKey);
+const [surname, setSurname] = useState(valueKey);
+</code></pre><p>And this is how we get a clash again.</p>
+<p>The actual Hooks proposal doesn’t have this problem because <strong>each <em>call</em> to <code>useState()</code> gets its own isolated state.</strong> Relying on a persistent call index frees us from worrying about name clashes.</p>
+<h3>Flaw #4: The Diamond Problem</h3>
+<p>This is technically the same flaw as the previous one but it’s worth mentioning for its notoriety. It’s even <a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">described on Wikipedia</a>. (Apparently, it’s sometimes called “the deadly diamond of death” — cool beans.)</p>
+<p>Our own mixin system <a href="https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#mixins-cause-name-clashes">suffered from it</a>.</p>
+<p>Two custom Hooks like <code>useWindowWidth()</code> and <code>useNetworkStatus()</code> might want to use the same custom Hook like <code>useSubscription()</code> under the hood:</p>
+<pre data-line="12,23-27,32-42," 12,23-27,32-42="" class="language-jsx"><code 12,23-27,32-42="" class="language-jsx">function StatusMessage() {
+  const width = useWindowWidth();
+  const isOnline = useNetworkStatus();
+  return (
+    &lt;>
+      &lt;p>Window width is {width}&lt;/p>
+      &lt;p>You are {isOnline ? 'online' : 'offline'}&lt;/p>
+    &lt;/>
+  );
+}
+
+function useSubscription(subscribe, unsubscribe, getValue) {
+  const [state, setState] = useState(getValue());
+  useEffect(() => {
+    const handleChange = () => setState(getValue());
+    subscribe(handleChange);
+    return () => unsubscribe(handleChange);
+  });
+  return state;
+}
+
+function useWindowWidth() {
+  const width = useSubscription(
+    handler => window.addEventListener('resize', handler),
+    handler => window.removeEventListener('resize', handler),
+    () => window.innerWidth,
+  );
+  return width;
+}
+
+function useNetworkStatus() {
+  const isOnline = useSubscription(
+    handler => {
+      window.addEventListener('online', handler);
+      window.addEventListener('offline', handler);
+    },
+    handler => {
+      window.removeEventListener('online', handler);
+      window.removeEventListener('offline', handler);
+    },
+    () => navigator.onLine,
+  );
+  return isOnline;
+}
+</code></pre><p>This is a completely valid use case. <strong>It should be safe for a custom Hook author to start or stop using another custom Hook without worrying whether it is “already used” somewhere in the chain.</strong> In fact, <em>you can never know</em> the whole chain unless you audit every component using your Hook on every change.</p>
+<p>(As a counterexample, the legacy React <code>createClass()</code> mixins did not let you do this. Sometimes you’d have two mixins that both do exactly what you need but are mutually incompatible due to extending the same “base” mixin.)</p>
+<p>This is our “diamond”: 💎</p>
+<pre class="language-javascript"><code class="language-javascript">       / useWindowWidth()   \                   / useState()  🔴 Clash
+Status                        useSubscription()
+       \ useNetworkStatus() /                   \ useEffect() 🔴 Clash
+</code></pre><p>Reliance on the persistent call order naturally resolves it:</p>
+<pre class="language-javascript"><code class="language-javascript">                                                 / useState()  ✅ #1. State
+       / useWindowWidth()   -> useSubscription()
+      /                                          \ useEffect() ✅ #2. Effect
+Status
+      \                                          / useState()  ✅ #3. State
+       \ useNetworkStatus() -> useSubscription()
+                                                 \ useEffect() ✅ #4. Effect
+</code></pre><p>Function calls don’t have a “diamond” problem because they form a tree. 🎄</p>
+<h3>Flaw #5: Copy Paste Breaks Things</h3>
+<p>Maybe we could salvage the keyed state proposal by introducing some sort of namespacing. There are a few different ways to do it.</p>
+<p>One way could be to isolate state keys with closures. This would require you to “instantiate” custom Hooks and add a function wrapper around each of them:</p>
+<pre data-line="5,6," 5,6="" class="language-jsx"><code 5,6="" class="language-jsx">/*******************
+ * useFormInput.js *
+ ******************/
+function createUseFormInput() {
+  // Unique per instantiation
+  const valueKey = Symbol();
+
+  return function useFormInput() {
+    const [value, setValue] = useState(valueKey);
+    return {
+      value,
+      onChange(e) {
+        setValue(e.target.value);
+      },
+    };
+  };
+}
+</code></pre><p>This approach is rather heavy-handed. One of the design goals of Hooks is to avoid the deeply nested functional style that is prevalent with higher-order components and render props. Here, we have to “instantiate” <em>any</em> custom Hook before its use — and use the resulting function <em>exactly once</em> in the body of a component. This isn’t much simpler than calling Hooks unconditionally.</p>
+<p>Additionally, you have to repeat every custom Hook used in a component twice. Once in the top level scope (or inside a function scope if we’re writing a custom Hook), and once at the actual call site. This means you have to jump between the rendering and top-level declarations even for small changes:</p>
+<pre data-line="2,3,7,8," 2,3,7,8="" class="language-jsx"><code 2,3,7,8="" class="language-jsx">// ⚠️ This is NOT the React Hooks API
+const useNameFormInput = createUseFormInput();
+const useSurnameFormInput = createUseFormInput();
+
+function Form() {
+  // ...
+  const name = useNameFormInput();
+  const surname = useNameFormInput();
+  // ...
+}
+</code></pre><p>You also need to be very precise with their names. You would always have “two levels” of names — factories like <code>createUseFormInput</code> and the instantiated Hooks like <code>useNameFormInput</code> and <code>useSurnameFormInput</code>.</p>
+<p>If you call the same custom Hook “instance” twice you’d get a state clash. In fact, the code above has this mistake — have you noticed? It should be:</p>
+<pre class="language-jsx"><code class="language-jsx">const name = useNameFormInput();
+const surname = useSurnameFormInput(); // Not useNameFormInput!
+</code></pre><p>These problems are not insurmountable but I would argue that they add <em>more</em> friction than following the <a href="https://reactjs.org/docs/hooks-rules.html">Rules of Hooks</a>.</p>
+<p>Importantly, they break the expectations of copy-paste. Extracting a custom Hook without an extra closure wrapper <em>still works</em> with this approach but only until you call it twice. (Which is when it creates a conflict.) It’s unfortunate when an API seems to work but then forces you to Wrap All the Things™️ once you realize there is a conflict somewhere deep down the chain.</p>
+<h3>Flaw #6: We Still Need a Linter</h3>
+<p>There is another way to avoid conflicts with keyed state. If you know about it, you were probably really annoyed I still haven’t acknowledged it! Sorry.</p>
+<p>The idea is that we could <em>compose</em> keys every time we write a custom Hook. Something like this:</p>
+<pre data-line="4,5,16,17," 4,5,16,17="" class="language-jsx"><code 4,5,16,17="" class="language-jsx">// ⚠️ This is NOT the React Hooks API
+function Form() {
+  // ...
+  const name = useFormInput('name');
+  const surname = useFormInput('surname');
+  // ...
+  return (
+    &lt;>
+      &lt;input {...name} />
+      &lt;input {...surname} />
+      {/* ... */}
+    &lt;/>
+  );
+}
+
+function useFormInput(formInputKey) {
+  const [value, setValue] = useState('useFormInput(' + formInputKey + ').value');
+  return {
+    value,
+    onChange(e) {
+      setValue(e.target.value);
+    },
+  };
+}
+</code></pre><p>Out of different alternatives, I dislike this approach the least. I don’t think it’s worth it though.</p>
+<p>Code passing non-unique or badly composed keys would <em>accidentally work</em> until a Hook is called multiple times or clashes with another Hook. Worse, if it’s meant to be conditional (we’re trying to “fix” the unconditional call requirement, right?), we might not even encounter the clashes until later.</p>
+<p>Remembering to pass keys through all layers of custom Hooks seems fragile enough that we’d want to lint for that. They would add extra work at runtime (don’t forget they’d need to serve <em>as keys</em>), and each of them is a paper cut for bundle size. <strong>But if we have to lint anyway, what problem did we solve?</strong></p>
+<p>This might make sense if conditionally declaring state and effects was very desirable. But in practice I find it confusing. In fact, I don’t recall anyone ever asking to conditionally define <code>this.state</code> or <code>componentDidMount</code> either.</p>
+<p>What does this code mean exactly?</p>
+<pre data-line="3,4," 3,4="" class="language-jsx"><code 3,4="" class="language-jsx">// ⚠️ This is NOT the React Hooks API
+function Counter(props) {
+  if (props.isActive) {
+    const [count, setCount] = useState('count');
+    return (
+      &lt;p onClick={() => setCount(count + 1)}>
+        {count}
+      &lt;/p>;
+    );
+  }
+  return null;
+}
+</code></pre><p>Is <code>count</code> preserved when <code>props.isActive</code> is <code>false</code>? Or does it get reset because <code>useState('count')</code> wasn’t called?</p>
+<p>If conditional state gets preserved, what about an effect?</p>
+<pre data-line="5-8," 5-8="" class="language-jsx"><code 5-8="" class="language-jsx">// ⚠️ This is NOT the React Hooks API
+function Counter(props) {
+  if (props.isActive) {
+    const [count, setCount] = useState('count');
+    useEffect(() => {
+      const id = setInterval(() => setCount(c => c + 1), 1000);
+      return () => clearInterval(id);
+    }, []);
+    return (
+      &lt;p onClick={() => setCount(count + 1)}>
+        {count}
+      &lt;/p>;
+    );
+  }
+  return null;
+}
+</code></pre><p>It definitely can’t run <em>before</em> <code>props.isActive</code> is <code>true</code> for the first time. But once it becomes <code>true</code>, does it ever stop running? Does the interval reset when <code>props.isActive</code> flips to <code>false</code>? If it does, it’s confusing that effect behaves differently from state (which we said wouldn’t reset). If the effect keeps running, it’s confusing that <code>if</code> outside the effect doesn’t actually make the effect conditional. Didn’t we say we wanted conditional effects?</p>
+<p>If the state <em>does</em> get reset when we don’t “use” it during a render, what happens if multiple <code>if</code> branches contain <code>useState('count')</code> but only one runs at any given time? Is that valid code? If our mental model is a “map with keys”, why do things “disappear” from it? Would the developer expect an early <code>return</code> from a component to reset all state after it? If we truly wanted to reset the state, we could make it explicit by extracting a component:</p>
+<pre class="language-jsx"><code class="language-jsx">function Counter(props) {
+  if (props.isActive) {
+    // Clearly has its own state
+    return &lt;TickingCounter />;
+  }
+  return null;
+}
+</code></pre><p>That would probably become the “best practice” to avoid these confusing questions anyway. So whichever way you choose to answer them, I think the semantics of conditionally <em>declaring</em> state and effects itself end up weird enough that you might want to lint against it.</p>
+<p>If we have to lint anyway, the requirement to correctly compose keys becomes “dead weight”. It doesn’t buy us anything we actually <em>want</em> to do. However, dropping that requirement (and going back to the original proposal) <em>does</em> buy us something. It makes copy-pasting component code into a custom Hook safe without namespacing it, reduces bundle size paper cuts from keys and unlocks a slightly more efficient implementation (no need for Map lookups).</p>
+<p>Small things add up.</p>
+<h3>Flaw #7: Can’t Pass Values Between Hooks</h3>
+<p>One of the best features of Hooks is that you can pass values between them.</p>
+<p>Here is a hypothetical example of a message recipient picker that shows whether the currently chosen friend is online:</p>
+<pre data-line="8,9," 8,9="" class="language-jsx"><code 8,9="" class="language-jsx">const friendList = [{ id: 1, name: 'Phoebe' }, { id: 2, name: 'Rachel' }, { id: 3, name: 'Ross' }];
+
+function ChatRecipientPicker() {
+  const [recipientID, setRecipientID] = useState(1);
+  const isRecipientOnline = useFriendStatus(recipientID);
+
+  return (
+    &lt;>
+      &lt;Circle color={isRecipientOnline ? 'green' : 'red'} />
+      &lt;select value={recipientID} onChange={e => setRecipientID(Number(e.target.value))}>
+        {friendList.map(friend => (
+          &lt;option key={friend.id} value={friend.id}>
+            {friend.name}
+          &lt;/option>
+        ))}
+      &lt;/select>
+    &lt;/>
+  );
+}
+
+function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null);
+  const handleStatusChange = status => setIsOnline(status.isOnline);
+  useEffect(() => {
+    ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
+    };
+  });
+  return isOnline;
+}
+</code></pre><p>When you change the recipient, our <code>useFriendStatus()</code> Hook would unsubscribe from the previous friend’s status, and subscribe to the next one.</p>
+<p>This works because we can pass the return value of the <code>useState()</code> Hook to the <code>useFriendStatus()</code> Hook:</p>
+<pre data-line="2," 2="" class="language-jsx"><code 2="" class="language-jsx">const [recipientID, setRecipientID] = useState(1);
+const isRecipientOnline = useFriendStatus(recipientID);
+</code></pre><p>Passing values between Hooks is very powerful. For example, <a href="https://medium.com/@drcmda/hooks-in-react-spring-a-tutorial-c6c436ad7ee4">React Spring</a> lets you create a trailing animation of several values “following” each other:</p>
+<pre class="language-jsx"><code class="language-jsx">const [{ pos1 }, set] = useSpring({ pos1: [0, 0], config: fast });
+const [{ pos2 }] = useSpring({ pos2: pos1, config: slow });
+const [{ pos3 }] = useSpring({ pos3: pos2, config: slow });
+</code></pre><p>(Here’s a <a href="https://codesandbox.io/s/ppxnl191zx">demo</a>.)</p>
+<p>Proposals that put Hook initialization into default argument values or that write Hooks in a decorator form make it difficult to express this kind of logic.</p>
+<p>If calling Hooks doesn’t happen in the function body, you can no longer easily pass values between them, transform those values without creating many layers of components, or add <code>useMemo()</code> to memoize an intermediate computation. You also can’t easily reference these values in effects because they can’t capture them in a closure. There are ways to work around these issues with some convention but they require you to mentally “match up” inputs and outputs. This is tricky and violates React’s otherwise direct style.</p>
+<p>Passing values between Hooks is at the heart of our proposal. Render props pattern was the closest you could get to it without Hooks, but you couldn’t get full benefits without something like <a href="https://ui.reach.tech/component-component">Component Component</a> which has a lot of syntactic noise due to a “false hierarchy”. Hooks flatten that hierarchy to passing values — and function calls is the simplest way to do that.</p>
+<h3>Flaw #8: Too Much Ceremony</h3>
+<p>There are many proposals that fall under this umbrella. Most attempt to avoid the perceived dependency of Hooks on React. There is a wide variety of ways to do it: by making built-in Hooks available on <code>this</code>, making them an extra argument you have to pass through everything, and so on.</p>
+<p>I think <a href="https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884">Sebastian’s answer</a> addresses this way better than I could describe so I encourage you to check out its first section (“Injection Model”).</p>
+<p>I’ll just say there is a reason programmers tend to prefer <code>try</code> / <code>catch</code> for error handling to passing error codes through every function. It’s the same reason why we prefer ES Modules with <code>import</code> (or CommonJS <code>require</code>) to AMD’s “explicit” definitions where <code>require</code> is passed to us.</p>
+<pre class="language-jsx"><code class="language-jsx">// Anyone miss AMD?
+define(['require', 'dependency1', 'dependency2'], function (require) {
+  var dependency1 = require('dependency1'),
+  var dependency2 = require('dependency2');
+  return function () {};
+});
+</code></pre><p>Yes, AMD may be more “honest” to the fact that modules aren’t actually synchronously loaded in a browser environment. But once you learn about that, writing the <code>define</code> sandwich becomes a mindless chore.</p>
+<p><code>try</code> / <code>catch</code>, <code>require</code>, and React Context API are pragmatic examples of how we want to have some “ambient” handler available to us instead of explicitly threading it through every level — even if in general we value explicitness. I think the same is true for Hooks.</p>
+<p>This is similar to how, when we define components, we just grab <code>Component</code> from <code>React</code>. Maybe our code would be more decoupled from React if we exported a factory for every component instead:</p>
+<pre class="language-jsx"><code class="language-jsx">function createModal(React) {
+  return class Modal extends React.Component {
+    // ...
+  };
+}
+</code></pre><p>But in practice this ends up being just an annoying indirection. When we actually want to stub React with something else, we can always do that at the module system level instead.</p>
+<p>The same applies to Hooks. Still, as <a href="https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884">Sebastian’s answer</a> mentions, it is <em>technically possible</em> to “redirect” Hooks exported from <code>react</code> to a different implementation. (<a href="/how-does-setstate-know-what-to-do/">One of my previous posts</a> mentions how.)</p>
+<p>Another way to impose more ceremony is by making Hooks <a href="https://paulgray.net/an-alternative-design-for-hooks/">monadic</a> or adding a first-class concept like <code>React.createHook()</code>. Aside from the runtime overhead, any solution that adds wrappers loses a huge benefit of using plain functions: <em>they are as easy to debug as it gets</em>.</p>
+<p>Plain functions let you step in and out with a debugger without any library code in the middle, and see exactly how values flow inside your component body. Indirections make this difficult. Solutions similar in spirit to either higher-order components (“decorator” Hooks) or render props (e.g. <code>adopt</code> proposal or <code>yield</code>ing from generators) suffer from the same problem. Indirections also complicate static typing.</p>
+<hr>
+<p>As I mentioned earlier, this post doesn’t aim to be exhaustive. There are other interesting problems with different proposals. Some of them are more obscure (e.g. related to concurrency or advanced compilation techniques) and might be a topic for another blog post in the future.</p>
+<p>Hooks aren’t perfect either, but it’s the best tradeoff we could find for solving these problems. There are things we <a href="https://github.com/reactjs/rfcs/pull/68#issuecomment-440780509">still need to fix</a>, and there exist things that are more awkward with Hooks than classes. That is also a topic for another blog post.</p>
+<p>Whether I covered your favorite alternative proposal or not, I hope this writeup helped shed some light on our thinking process and the criteria we consider when choosing an API. As you can see, a lot of it (such as making sure that copy-pasting, moving code, adding and removing dependencies works as expected) has to do with <a href="/optimized-for-change/">optimizing for change</a>. I hope that React users will appreciate these aspects.</p>
+</article> <hr> <div class="post__wrapper"><!----> <a href="/lkangd.com/post/things-i-dont-know-as-of-2018" class="cs-outside-link fl">← Things I Don’t Know as of 2018</a></div> <section class="cs-statement" data-v-6cb3297c><hr data-v-6cb3297c> <p class="cs-statement__text" data-v-6cb3297c>
+    讨论请发邮件到
+    <a href="mailto:lkangd@gmail.com" target="_blank" class="cs-outside-link" data-v-6cb3297c>lkangd@gmail.com</a></p> <p class="cs-statement__text" data-v-6cb3297c>未经授权，禁止转载</p> <p class="cs-statement__text" data-v-6cb3297c>通过支付宝 lkangd@foxmail.com 或赞赏码赞助此文</p> <img alt="reward-code" src="/lkangd.com/_nuxt/img/3b0f29f.jpg" class="cs-statement__reward-code" data-v-6cb3297c></section></section> <footer class="cs-footer" data-v-04c3be52><div class="cs-color-slogan cs-footer__slogan" data-v-1740ad80 data-v-04c3be52><span data-v-1740ad80>Work With </span> <span class="cs-color-slogan__placeholder" data-v-1740ad80></span> <span class="cs-color-slogan__wrapper" data-v-1740ad80>
+     
+    <span data-v-1740ad80></span></span></div> <svg xmlns="http://www.w3.org/2000/svg" class="cs-footer__logo" data-v-04c3be52><use href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo" xlink:href="/lkangd.com/_nuxt/262e991fa0c906f1d05d77a4571a395b.svg#i-logo"></use></svg> <p class="cs-footer__text" data-v-04c3be52>
+    2017-2019 
+    <a href="/" target="_blank" class="cs-outside-link" data-v-04c3be52>Curtis' Spot</a></p></footer></div></div></div><script defer src="/lkangd.com/post/why-do-hooks-rely-on-call-order/payload1568183296278.js"></script><script src="/lkangd.com/_nuxt/65dc7a5cd1c1cd57e7eb.js" defer></script><script src="/lkangd.com/_nuxt/7e77b8e6cd7011676488.js" defer></script><script src="/lkangd.com/_nuxt/48f65a593c854d50b992.js" defer></script><script src="/lkangd.com/_nuxt/2bc7cee40a450e203637.js" defer></script><script src="/lkangd.com/_nuxt/ef6c14c0800794aa78c2.js" defer></script><script data-n-head="ssr" type="text/javascript" data-body="true">!function(){function t(e){r=e,document.body.className=e}var r,a={light:"light",dark:"dark"};try{r=localStorage.getItem("theme")}catch(e){}window.__setPreferredTheme=function(e){t(e);try{localStorage.setItem("theme",e)}catch(e){}};var e=window.matchMedia("(prefers-color-scheme: dark)");e.addListener(function(e){window.__setPreferredTheme(a[r]||(e.matches?"dark":"light"))}),t(a[r]||(e.matches?"dark":"light"))}()</script>
+  </body>
+</html>
